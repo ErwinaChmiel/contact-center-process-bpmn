@@ -24,10 +24,10 @@ do procesu w dziale Contact Center.
     - callback.
    
 ## Struktura repozytorium
-- 'bpmn/' - diagramy procesu AS-IS i TO-BE (BPMN + PNG).
-- 'sql/' - skrypt tworzący bazę i dane przykładowe.
-- 'docs/' - opisy procesów oraz KPI i model danych.
-- 'README.md' - podsumowanie projektu.
+- `bpmn/` - diagramy procesu AS-IS i TO-BE (BPMN + PNG).
+- `sql/` - skrypt tworzący bazę i dane przykładowe.
+- `docs/` - opisy procesów oraz KPI i model danych.
+- `README.md` - podsumowanie projektu.
 
 ## Pliki
 
