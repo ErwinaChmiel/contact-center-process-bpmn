@@ -29,6 +29,27 @@ do procesu w dziale Contact Center.
 - `docs/` - opisy procesów oraz KPI i model danych.
 - `README.md` - podsumowanie projektu.
 
+## Jak uruchomić SQL
+
+1. Utwórz bazę danych (np. na Azure SQL / lokalnym MS SQL / Postgres).
+2. Uruchom skrypt z katalogu `sql/`:
+   - utworzy tabele,
+   - wstawi dane przykładowe.
+3. Na tej bazie możesz:
+   - liczyć KPI procesu (ASA, AHT, FCR, SLA, self-service, callback),
+   - budować dashboard w narzędziu BI (np. Power BI, Looker Studio).
+
+## Przykładowe KPI oparte na tym modelu
+
+- **ASA (Average Speed of Answer)** – średni czas oczekiwania na połączenie.
+- **AHT (Average Handle Time)** – średni czas obsługi połączenia.
+- **FCR (First Contact Resolution)** – odsetek spraw rozwiązanych przy pierwszym kontakcie.
+- **Abandonment rate** – odsetek porzuconych połączeń.
+- **Self-service rate** – odsetek spraw załatwionych w IVR.
+- **Callback rate** – odsetek klientów wybierających oddzwonienie.
+- **SLA** – odsetek spraw zamkniętych w wymaganym czasie.
+
+
 ## Pliki
 
 - `CC_Obsluga_Polaczenia_AS_IS.bpmn` – proces obecny (AS-IS).
