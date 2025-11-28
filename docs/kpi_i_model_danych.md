@@ -49,7 +49,3 @@ Dzięki takiej strukturze można powiązać:
 
 - **SLA** – odsetek spraw zamkniętych w wymaganym czasie:
   - sprawy z `resolved_in_sla = 1` wśród zamkniętych (`status = 'closed'`).
-
-Te KPI mogą być później prezentowane na dashboardzie w Power BI (np. kafelki z KPI + wykresy w czasie).
-
-    
