@@ -1,5 +1,5 @@
 -- =========================================================
--- 6. Dane przyk?adowe
+-- 6. Dane przykladowe
 -- =========================================================
 
 -- 6.1. Klienci
@@ -22,7 +22,7 @@ INSERT INTO agents (agent_id, name, team, seniority) VALUES
 -- Data przyk?adowa: 2025-01-10
 -- =========================================================
 
--- 1) Klient A – prosta sprawa dot. faktury, za?atwiona w IVR (self-service)
+-- 1) Klient A – prosta sprawa dot. faktury, zalatwiona w IVR (self-service)
 INSERT INTO calls VALUES (
   1,         -- call_id
   1,         -- customer_id
@@ -42,7 +42,7 @@ INSERT INTO calls VALUES (
   0                      -- is_abandoned_in_queue
 );
 
--- 2) Klient B – reklamacja, rozwi?zana od razu przez 1st line (FCR)
+-- 2) Klient B – reklamacja, rozwiazana od razu przez 1st line (FCR)
 INSERT INTO calls VALUES (
   2,
   2,
@@ -62,7 +62,7 @@ INSERT INTO calls VALUES (
   0
 );
 
--- 3) Klient C – problem techniczny, klient roz??cza si? w kolejce (abandoned)
+-- 3) Klient C – problem techniczny, klient rozlacza sie w kolejce (abandoned)
 INSERT INTO calls VALUES (
   3,
   3,
@@ -82,7 +82,7 @@ INSERT INTO calls VALUES (
   1           -- is_abandoned_in_queue
 );
 
--- 4) Klient B – trudniejsza reklamacja, pó?niej eskalowana do 2nd line
+-- 4) Klient B – trudniejsza reklamacja, pozniej eskalowana do 2nd line
 INSERT INTO calls VALUES (
   4,
   2,
@@ -102,7 +102,7 @@ INSERT INTO calls VALUES (
   0
 );
 
--- 5) Klient D – wybiera callback (oddzwonienie), po??czenie ko?czy si? przed konsultantem
+-- 5) Klient D – wybiera callback (oddzwonienie), polaczenie konczy sie przed konsultantem
 INSERT INTO calls VALUES (
   5,
   4,
@@ -122,7 +122,7 @@ INSERT INTO calls VALUES (
   0
 );
 
--- 6) Klient D – oddzwonienie (callback) zrealizowane, sprawa rozwi?zana
+-- 6) Klient D – oddzwonienie (callback) zrealizowane, sprawa rozwiazana
 INSERT INTO calls VALUES (
   6,
   4,
@@ -162,7 +162,7 @@ INSERT INTO calls VALUES (
   0
 );
 
--- 8) Klient E – oddzwonienie od 2nd line z decyzj?
+-- 8) Klient E – oddzwonienie od 2nd line z decyzja
 INSERT INTO calls VALUES (
   8,
   5,
@@ -206,7 +206,7 @@ INSERT INTO calls VALUES (
 -- 6.4. Sprawy (CASES)
 -- =========================================================
 
--- Case 1 – Klient B, reklamacja rozwi?zana przy pierwszym kontakcie (FCR)
+-- Case 1 – Klient B, reklamacja rozwiazana przy pierwszym kontakcie (FCR)
 INSERT INTO cases VALUES (
   1,
   2,               -- customer_id (Klient B)
@@ -240,7 +240,7 @@ INSERT INTO cases VALUES (
   'after_escalation'
 );
 
--- Case 3 – Klient D, sprawa dot. faktury, rozwi?zana podczas callbacku
+-- Case 3 – Klient D, sprawa dot. faktury, rozwiazana podczas callbacku
 INSERT INTO cases VALUES (
   3,
   4,
@@ -274,8 +274,8 @@ INSERT INTO cases VALUES (
   'after_escalation'
 );
 
--- Case 5 – Klient A, sprawa rozwi?zana w IVR (self-service),
---           dla przyk?adu równie? rejestrowana jako sprawa
+-- Case 5 – Klient A, sprawa rozwiazana w IVR (self-service),
+--           dla przykladu rowniez rejestrowana jako sprawa
 INSERT INTO cases VALUES (
   5,
   1,
@@ -310,7 +310,7 @@ INSERT INTO contacts VALUES (
   1    -- is_inbound
 );
 
--- Case 2 – pierwszy kontakt (1st line), jeszcze bez rozwi?zania
+-- Case 2 – pierwszy kontakt (1st line), jeszcze bez rozwiazania
 INSERT INTO contacts VALUES (
   2,
   2,
@@ -324,7 +324,7 @@ INSERT INTO contacts VALUES (
   1
 );
 
--- Case 2 – drugi kontakt (2nd line), sprawa zamkni?ta
+-- Case 2 – drugi kontakt (2nd line), sprawa zamknieta
 INSERT INTO contacts VALUES (
   3,
   2,
@@ -352,7 +352,7 @@ INSERT INTO contacts VALUES (
   0   -- outbound (callback)
 );
 
--- Case 4 – kontakt 1st line (nie rozwi?zuje)
+-- Case 4 – kontakt 1st line (nie rozwiazuje)
 INSERT INTO contacts VALUES (
   5,
   4,
@@ -366,7 +366,7 @@ INSERT INTO contacts VALUES (
   1
 );
 
--- Case 4 – kontakt 2nd line z decyzj?
+-- Case 4 – kontakt 2nd line z decyzja
 INSERT INTO contacts VALUES (
   6,
   4,
@@ -380,6 +380,7 @@ INSERT INTO contacts VALUES (
   0
 );
 
--- Case 5 – samoobs?uga w IVR, bez kontaktu z konsultantem (dla przyk?adu brak w contacts)
+-- Case 5 – samoobsauga w IVR, bez kontaktu z konsultantem (dla przykladu brak w contacts)
 
 -- KONIEC DANYCH
+
