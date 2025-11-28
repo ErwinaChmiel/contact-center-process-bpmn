@@ -37,18 +37,20 @@ Projekt i implementacja prostego modelu danych pod analitykę Contact Center:
   - porzucone połączenia w kolejce,
   - callback (wybór oddzwonienia i jego realizacja).
 
-### 3. (Planowane) Dashboardy w Power BI
+### 3. Dashboard w Power BI
 
-Na bazie przygotowanego modelu danych planuję zbudować dashboard w Power BI, prezentujący m.in.:
+W katalogu `bi/` znajduje się plik:
+
+- `contact_center_dashboard.pbix` – dashboard zbudowany na bazie modelu danych z katalogu `sql/`.
+
+Dashboard prezentuje m.in.:
 
 - obciążenie infolinii w czasie (wolumen połączeń),
 - kluczowe KPI (ASA, AHT, FCR, SLA, self-service, callback),
 - porównanie AS-IS vs TO-BE pod kątem jakości obsługi.
 
-Docelowo w repo pojawi się:
-
-- plik `.pbix` z dashboardem,
-- zrzuty ekranów w katalogu `docs/` lub `bi/`.
+Zrzuty ekranu z raportu:
+- `docs/dashboard_overview.png`
 
 ## Struktura repozytorium
 
