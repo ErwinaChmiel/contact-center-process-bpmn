@@ -21,6 +21,12 @@ Projekt może służyć jako:
 - kompletny case study analityczny.
 
 ---
+## Architektura rozwiązania
+
+- BPMN 2.0 – model procesów AS-IS i TO-BE
+- SQL – baza danych + dane przykładowe
+- Power BI – model danych i KPI (DAX)
+- Dashboard: 4 strony analityczne + strona alertów
 
 ## Zakres projektu
 
@@ -65,12 +71,140 @@ W katalogu `bi/` znajduje się plik:
 
 Dashboard prezentuje m.in.:
 
-- obciążenie infolinii w czasie (wolumen połączeń),
-- kluczowe KPI (ASA, AHT, FCR, SLA, self-service, callback),
-- porównanie AS-IS vs TO-BE pod kątem jakości obsługi.
+### **3.1. Strona 1 — Executive KPI Overview**
 
-Zrzuty ekranu z raportu:
-- `docs/dashboard_overview.png`
+KPI główne:
+
+- Łączna liczba połączeń przychodzących  
+- Odebrane połączenia  
+- Wskaźnik porzuceń (Abandonment Rate)  
+- Poziom SLA  
+- First Contact Resolution Rate  
+- Self-service Rate (IVR)
+
+Dodatkowa analityka:
+
+- obciążenie godzinowe (Inbound by Hour),
+- rozkład tematów IVR,
+- kategorie zgłoszeń,
+- trendy ASA i AHT.
+
+---
+
+### **3.2. Strona 2 — Call Flow / SLA / FCR / Callback Analysis**
+
+Sekcje:
+
+#### Call Flow Funnel  
+Przepływ klienta:  
+Inbound → IVR → Queue → Answered → Self-Service → Callback
+
+#### SLA Analysis  
+- SLA Rate  
+- SLA Trend  
+- Escalation Rate (donut)
+
+#### FCR Analysis  
+- FCR KPI  
+- Trend FCR  
+- FCR wg kategorii
+
+#### Callback Analysis  
+- Callback funnel  
+- Średnie opóźnienie callbacku  
+
+---
+
+### **3.3. Strona 3 — Operational Analytics**
+
+Najważniejsze wskaźniki operacyjne:
+
+- średni czas oczekiwania w kolejce,  
+- wskaźnik porzuceń,  
+- liczba połączeń w kolejce.
+
+Wykresy:
+
+- ASA Trend (Average Speed of Answer)  
+- AHT Trend (Average Handle Time)  
+- Inbound Calls by Hour (obciążenie contact center)
+
+---
+
+### **3.4. Strona 4 — Segmentation & Agents Analysis**
+
+Sekcje:
+
+#### Agent Team Performance  
+- FCR dla zespołów  
+- AHT dla zespołów  
+
+#### Individual Agent Performance  
+- liczba obsłużonych połączeń,
+- AHT per agent,
+- FCR per agent.
+
+#### Customer Segment Analysis  
+- wolumen połączeń według segmentu,
+- FCR wg segmentu.
+
+#### Agent Trends  
+- FCR Trend per agent.
+
+---
+
+### **3.5. Strona 5 — Alerts & Exceptions**
+
+Strona dla managerów i liderów:
+
+- sprawy po SLA,
+- nierozwiązane callbacki,
+- połączenia porzucone powyżej progu,
+- konsultanci z podwyższonym AHT,
+- lista wyjątków w formie tabeli.
+
+---
+
+## 4. KPI & DAX
+
+Model zawiera komplet profesjonalnych miar:
+
+### KPI połączeń
+- Total Inbound Calls  
+- Answered Calls  
+- ASA (Average Speed of Answer)  
+- AHT (Average Handle Time)  
+- Abandonment Rate  
+- Queue Time (avg / p95)
+
+### KPI jakości obsługi
+- FCR Rate  
+- Escalation Rate  
+- SLA Rate  
+
+### Automatyzacja i callback
+- Self-service Rate  
+- Callback Selected  
+- Callback Realized  
+- Callback FCR  
+- Callback Delay  
+
+---
+
+## 9. Wnioski biznesowe
+
+Dashboard umożliwia identyfikację:
+
+- godzin największego obciążenia,
+- kluczowych przyczyn kontaktu,
+- problemów operacyjnych (kolejki, porzucenia),
+- jakości obsługi FCR i SLA,
+- skuteczności konsultantów,
+- efektywności samoobsługi i callbacków.
+
+Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center.
+
+---
 
 ## Struktura repozytorium
 
@@ -94,6 +228,8 @@ Zrzuty ekranu z raportu:
 
 - `README.md` – podsumowanie projektu.
 
+---
+
 ## Jak uruchomić SQL
 
 1. Utwórz bazę danych (np. na Azure SQL / lokalnym MS SQL / innym silniku zgodnym z T-SQL).
@@ -102,7 +238,13 @@ Zrzuty ekranu z raportu:
    - `02_contact_center_sample_data.sql` – wstawi dane przykładowe.
 3. Na tej bazie możesz:
    - liczyć KPI procesu (ASA, AHT, FCR, SLA, self-service, callback),
-   - budować dashboard w narzędziu BI (np. Power BI, Looker Studio).
+   - budować dashboard w narzędziu BI (np. Power BI, Looker Studio, Qlik Sense, Tableau).
+4. Otwórz Power BI i połącz się z bazą:
+    - załaduj wszystkie tabele.
+5. Otwórz plik `ContactCenter.pbix`:
+    - dashboard automatycznie odświeży model.
+
+---
 
 ## Przykładowe KPI oparte na tym modelu
 
@@ -113,6 +255,8 @@ Zrzuty ekranu z raportu:
 - **Self-service rate** – odsetek spraw załatwionych w IVR.
 - **Callback rate** – odsetek klientów wybierających oddzwonienie.
 - **SLA** – odsetek spraw zamkniętych w wymaganym czasie (zgodnie z terminem SLA).
+
+---
 
 ## Pliki w repozytorium
 
