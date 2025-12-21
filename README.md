@@ -1,6 +1,7 @@
-# Optymalizacja procesu obsługi połączeń w Contact Center (BPMN + SQL)
+# Optymalizacja procesu obsługi połączeń w Contact Center (BPMN + SQL + Power BI)
 
-Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center. Projekt przedstawia kompletny cykl analityczny Contact Center — od modelowania procesów biznesowych (BPMN AS-IS i TO-BE), przez zaprojektowanie i zasilenie relacyjnej bazy danych SQL, aż po budowę zaawansowanego wielostronicowego dashboardu operacyjnego w Power BI.
+Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center.  
+Projekt przedstawia kompletny cykl analityczny — od modelowania procesów biznesowych (BPMN AS-IS i TO-BE), przez zaprojektowanie i zasilenie relacyjnej bazy danych SQL, aż po budowę zaawansowanego, wielostronicowego dashboardu operacyjnego w Power BI.
 
 ---
 
@@ -9,30 +10,34 @@ Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu 
 Celem projektu jest zaprezentowanie pełnego procesu pracy analityczki biznesowej:
 
 - modelowanie procesów biznesowych (BPMN 2.0),
-- projektowanie modelu danych pod analizę operacyjną,
+- zaprojektowanie modelu danych pod analizę operacyjną,
 - tworzenie i ładowanie danych w relacyjnej bazie SQL,
-- budowa semantycznego modelu danych i DAX w Power BI,
-- tworzenie profesjonalnych dashboardów Contact Center,
+- budowa semantycznego modelu danych i miar DAX w Power BI,
+- przygotowanie profesjonalnych dashboardów dla Contact Center,
 - analiza KPI: FCR, SLA, AHT, ASA, abandonment, callback, self-service.
 
 Projekt może służyć jako:
+
 - element portfolio rekrutacyjnego,
-- wzorzec prawdziwego raportowania Contact Center,
-- kompletny case study analityczny.
+- wzorzec raportowania operacyjnego dla Contact Center,
+- kompletne case study analityczne.
 
 ---
+
 ## Architektura rozwiązania
 
-- BPMN 2.0 – model procesów AS-IS i TO-BE
-- SQL – baza danych + dane przykładowe
-- Power BI – model danych i KPI (DAX)
-- Dashboard: 4 strony analityczne + strona alertów
+- **BPMN 2.0** – model procesów AS-IS i TO-BE,
+- **SQL** – baza danych + dane przykładowe,
+- **Power BI** – model danych i KPI (DAX),
+- **Dashboard** – 4 strony analityczne + strona alertów.
+
+---
 
 ## Zakres projektu
 
 ### 1. Model procesu (BPMN 2.0 – Camunda Web Modeler)
 
-Proces obsługi połączeń przychodzących w Contact Center, zmapowany w wersji:
+Proces obsługi połączeń przychodzących w Contact Center został zamodelowany w dwóch wariantach:
 
 - **AS-IS** – stan obecny:
   - obsługa połączeń przychodzących,
@@ -46,15 +51,18 @@ Proces obsługi połączeń przychodzących w Contact Center, zmapowany w wersji
   - dodatkowy krok **tagowania powodu kontaktu i wyniku rozmowy w systemie** (pod analitykę i KPI),
   - skrócony SLA dzięki lepszemu routingu i odciążeniu konsultantów.
 
+---
+
 ### 2. Model danych + przykładowe dane (SQL)
 
-Projekt i implementacja prostego modelu danych pod analitykę Contact Center:
+Zaprojektowany został prosty, ale realistyczny model danych pod analitykę Contact Center:
 
-- Tabele:
+- **Tabele główne:**
   - `calls` – połączenia (IVR, kolejka, konsultant, self-service, callback),
   - `cases` – zgłoszenia / sprawy,
   - `contacts` – kontakty z konsultantem w ramach spraw,
-  - `agents`, `customers` – słowniki.
+  - `agents` – konsultanci,
+  - `customers` – klienci.
 
 - Dane przykładowe odzwierciedlają różne scenariusze:
   - self-service w IVR,
@@ -63,146 +71,155 @@ Projekt i implementacja prostego modelu danych pod analitykę Contact Center:
   - porzucone połączenia w kolejce,
   - callback (wybór oddzwonienia i jego realizacja).
 
+---
+
 ### 3. Dashboard w Power BI
 
-W katalogu `bi/` znajduje się plik:
+W katalogu `powerbi/` znajduje się plik:
 
-- `contact_center_dashboard.pbix` – dashboard zbudowany na bazie modelu danych z katalogu `sql/`.
+- `ContactCenter.pbix` – dashboard zbudowany na bazie modelu danych z katalogu `sql/`.
 
 Dashboard prezentuje m.in.:
 
-### **3.1. Strona 1 — Executive KPI Overview**
+---
+
+### 3.1. Strona 1 — Executive KPI Overview
 
 KPI główne:
 
-- Łączna liczba połączeń przychodzących  
-- Odebrane połączenia  
-- Wskaźnik porzuceń (Abandonment Rate)  
-- Poziom SLA  
-- First Contact Resolution Rate  
-- Self-service Rate (IVR)
+- łączna liczba połączeń przychodzących,  
+- odebrane połączenia,  
+- wskaźnik porzuceń (Abandonment Rate),  
+- poziom SLA,  
+- First Contact Resolution Rate (FCR),  
+- Self-service Rate (IVR).
 
 Dodatkowa analityka:
 
 - obciążenie godzinowe (Inbound by Hour),
 - rozkład tematów IVR,
 - kategorie zgłoszeń,
-- trendy ASA i AHT.
+- trendy ASA (Average Speed of Answer) i AHT (Average Handle Time).
 
 ---
 
-### **3.2. Strona 2 — Call Flow / SLA / FCR / Callback Analysis**
+### 3.2. Strona 2 — Call Flow / SLA / FCR / Callback Analysis
 
 Sekcje:
 
 #### Call Flow Funnel  
-Przepływ klienta:  
-Inbound → IVR → Queue → Answered → Self-Service → Callback
+Przepływ klienta przez proces:  
+**Inbound → IVR → Queue → Answered → Self-Service → Callback**
 
 #### SLA Analysis  
-- SLA Rate  
-- SLA Trend  
-- Escalation Rate (donut)
+- SLA Rate,  
+- SLA Trend,  
+- Escalation Rate (donut chart).
 
 #### FCR Analysis  
-- FCR KPI  
-- Trend FCR  
-- FCR wg kategorii
+- FCR KPI,  
+- trend FCR,  
+- FCR wg kategorii spraw (case category).
 
 #### Callback Analysis  
-- Callback funnel  
-- Średnie opóźnienie callbacku  
+- callback funnel (selected → realized → resolved),  
+- średnie opóźnienie callbacku.
 
 ---
 
-### **3.3. Strona 3 — Operational Analytics**
+### 3.3. Strona 3 — Operational Analytics
 
 Najważniejsze wskaźniki operacyjne:
 
-- średni czas oczekiwania w kolejce,  
-- wskaźnik porzuceń,  
-- liczba połączeń w kolejce.
+- średni czas oczekiwania w kolejce (Queue Time),  
+- wskaźnik porzuceń (Abandonment Rate),  
+- liczba połączeń przekazanych do kolejki (Queued Calls).
 
-Wykresy:
+Wizualizacje:
 
-- ASA Trend (Average Speed of Answer)  
-- AHT Trend (Average Handle Time)  
-- Inbound Calls by Hour (obciążenie contact center)
+- **ASA Trend** (Average Speed of Answer),  
+- **AHT Trend** (Average Handle Time),  
+- **Inbound Calls by Hour** (obciążenie contact center w ciągu dnia).
 
 ---
 
-### **3.4. Strona 4 — Segmentation & Agents Analysis**
+### 3.4. Strona 4 — Segmentation & Agents Analysis
 
 Sekcje:
 
 #### Agent Team Performance  
-- FCR dla zespołów  
-- AHT dla zespołów  
+- FCR dla zespołów (np. 1st line vs 2nd line),  
+- AHT dla zespołów.
 
 #### Individual Agent Performance  
-- liczba obsłużonych połączeń,
-- AHT per agent,
+- liczba obsłużonych połączeń per agent,  
+- AHT per agent,  
 - FCR per agent.
 
 #### Customer Segment Analysis  
-- wolumen połączeń według segmentu,
+- wolumen połączeń według segmentu (np. B2C / SME / Corporate),  
 - FCR wg segmentu.
 
 #### Agent Trends  
-- FCR Trend per agent.
+- FCR Trend per agent (trend jakości obsługi w czasie).
 
 ---
 
-### **3.5. Strona 5 — Alerts & Exceptions**
+### 3.5. Strona 5 — Alerts & Exceptions
 
-Strona dla managerów i liderów:
+Strona operacyjna dla managerów i liderów Contact Center, prezentująca wyjątki i obszary wymagające reakcji:
 
-- sprawy po SLA,
-- nierozwiązane callbacki,
-- połączenia porzucone powyżej progu,
+- sprawy po SLA (przekroczony termin realizacji),
+- nierozwiązane callbacki (wybrany, ale nie zrealizowany),
+- połączenia porzucone powyżej ustalonego progu czasu oczekiwania,
 - konsultanci z podwyższonym AHT,
-- lista wyjątków w formie tabeli.
+- lista wyjątków w formie tabeli (cases, callbacks, agents).
 
 ---
 
-## 4. KPI & DAX
+## KPI & DAX
 
-Model zawiera komplet profesjonalnych miar:
+Model danych zawiera zestaw profesjonalnych miar, m.in.:
 
 ### KPI połączeń
-- Total Inbound Calls  
-- Answered Calls  
-- ASA (Average Speed of Answer)  
-- AHT (Average Handle Time)  
-- Abandonment Rate  
-- Queue Time (avg / p95)
+
+- **Total Inbound Calls** – łączna liczba połączeń przychodzących,  
+- **Answered Calls** – liczba połączeń obsłużonych przez konsultanta,  
+- **ASA (Average Speed of Answer)** – średni czas oczekiwania na połączenie,  
+- **AHT (Average Handle Time)** – średni czas obsługi połączenia,  
+- **Abandonment Rate** – odsetek połączeń porzuconych przez klientów,  
+- **Queue Time (avg / p95)** – średni i 95. percentyl czasu oczekiwania w kolejce.
 
 ### KPI jakości obsługi
-- FCR Rate  
-- Escalation Rate  
-- SLA Rate  
+
+- **FCR Rate (First Contact Resolution)** – odsetek spraw rozwiązanych przy pierwszym kontakcie,  
+- **Escalation Rate** – odsetek spraw eskalowanych na 2nd line,  
+- **SLA Rate** – odsetek spraw zrealizowanych w wymaganym czasie (zgodnie z SLA).
 
 ### Automatyzacja i callback
-- Self-service Rate  
-- Callback Selected  
-- Callback Realized  
-- Callback FCR  
-- Callback Delay  
+
+- **Self-service Rate** – odsetek spraw załatwionych w IVR,  
+- **Callback Selected** – liczba przypadków, gdzie klient wybrał oddzwonienie,  
+- **Callback Realized** – liczba zrealizowanych oddzwonień,  
+- **Callback FCR** – sprawy rozwiązane w ramach callbacku,  
+- **Callback Delay** – średni czas oczekiwania na realizację callbacku.
+
+(Szczegółowa logika znajduje się w miarach DAX w pliku `ContactCenter.pbix`.)
 
 ---
 
-## 9. Wnioski biznesowe
+## Wnioski biznesowe
 
-Dashboard umożliwia identyfikację:
+Dashboard umożliwia m.in.:
 
-- godzin największego obciążenia,
-- kluczowych przyczyn kontaktu,
-- problemów operacyjnych (kolejki, porzucenia),
-- jakości obsługi FCR i SLA,
-- skuteczności konsultantów,
-- efektywności samoobsługi i callbacków.
+- identyfikację godzin największego obciążenia (planowanie grafików, SLA),  
+- analizę kluczowych przyczyn kontaktu (IVR topics, case categories),  
+- wykrywanie problemów operacyjnych (kolejki, porzucenia, długie czasy obsługi),  
+- ocenę jakości obsługi (FCR, SLA) w czasie i w podziale na zespoły / agentów,  
+- ocenę skuteczności samoobsługi i callbacków,  
+- monitorowanie wyjątków (sprawy po SLA, niezrealizowane callbacki, słabsza efektywność części agentów).
 
-Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center.
+Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center z perspektywy zarówno operacyjnej, jak i jakościowej.
 
 ---
 
@@ -212,74 +229,47 @@ Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center.
   Diagramy procesu AS-IS i TO-BE (BPMN + PNG):
   - `CC_Obsluga_Polaczenia_AS_IS.bpmn` – proces obecny (AS-IS),
   - `CC_Obsluga_Polaczenia_TO_BE.bpmn` – proces docelowy (TO-BE),
-  - `*.png` – zrzuty diagramów.
+  - `CC_Obsluga_Polaczenia_AS_IS.png` – zrzut diagramu AS-IS,
+  - `CC_Obsluga_Polaczenia_TO_BE.png` – zrzut diagramu TO-BE.
 
 - `sql/`  
   Skrypty SQL:
   - `01_contact_center_schema.sql` – schemat bazy (tabele i relacje),
-  - `02_contact_center_sample_data.sql` – dane przykładowe,
-  - `03_contact_center_kpi_queries.sql` (opcjonalnie) – przykładowe zapytania KPI.
+  - `02_contact_center_sample_data.sql` – dane przykładowe dla procesu Contact Center.
 
 - `docs/`  
   Dokumentacja:
-  - `opis_procesu_AS_IS.md` – opis procesu AS-IS,
-  - `opis_procesu_TO_BE.md` – opis procesu TO-BE,
-  - `kpi_i_model_danych.md` – opis modelu danych i kluczowych KPI.
+  - `opis_procesu_AS_IS.md` – opis procesu AS-IS (stan obecny, problemy),
+  - `opis_procesu_TO_BE.md` – opis procesu TO-BE (usprawnienia: self-service, callback, SLA itd.),
+  - `kpi_i_model_danych.md` – opis modelu danych oraz kluczowych KPI.
 
-- `README.md` – podsumowanie projektu.
+- `powerbi/`  
+  - `ContactCenter.pbix` – raport Power BI bazujący na modelu danych z katalogu `sql/`.
+
+- `README.md` – podsumowanie projektu, instrukcja uruchomienia i kontekst biznesowy.
 
 ---
 
-## Jak uruchomić SQL
+## Jak uruchomić projekt
 
-1. Utwórz bazę danych (np. na Azure SQL / lokalnym MS SQL / innym silniku zgodnym z T-SQL).
-2. Uruchom skrypt z katalogu `sql/`:
+1. Utwórz bazę danych (np. lokalny MS SQL / Azure SQL / inny silnik zgodny z T-SQL).
+2. Uruchom skrypty z katalogu `sql/`:
    - `01_contact_center_schema.sql` – utworzy tabele,
    - `02_contact_center_sample_data.sql` – wstawi dane przykładowe.
-3. Na tej bazie możesz:
-   - liczyć KPI procesu (ASA, AHT, FCR, SLA, self-service, callback),
-   - budować dashboard w narzędziu BI (np. Power BI, Looker Studio, Qlik Sense, Tableau).
-4. Otwórz Power BI i połącz się z bazą:
-    - załaduj wszystkie tabele.
-5. Otwórz plik `ContactCenter.pbix`:
-    - dashboard automatycznie odświeży model.
+3. Otwórz Power BI Desktop i połącz się z utworzoną bazą danych.
+4. Załaduj tabele: `calls`, `cases`, `contacts`, `agents`, `customers`.
+5. Otwórz plik `powerbi/ContactCenter.pbix` – dashboard automatycznie odświeży model i KPI na podstawie bazy.
 
 ---
 
 ## Przykładowe KPI oparte na tym modelu
 
-- **ASA (Average Speed of Answer)** – średni czas oczekiwania na połączenie.
-- **AHT (Average Handle Time)** – średni czas obsługi połączenia.
-- **FCR (First Contact Resolution)** – odsetek spraw rozwiązanych przy pierwszym kontakcie.
-- **Abandonment rate** – odsetek porzuconych połączeń (rozłączenie w IVR / kolejce).
-- **Self-service rate** – odsetek spraw załatwionych w IVR.
-- **Callback rate** – odsetek klientów wybierających oddzwonienie.
+- **ASA (Average Speed of Answer)** – średni czas oczekiwania na połączenie.  
+- **AHT (Average Handle Time)** – średni czas obsługi połączenia.  
+- **FCR (First Contact Resolution)** – odsetek spraw rozwiązanych przy pierwszym kontakcie.  
+- **Abandonment rate** – odsetek porzuconych połączeń (rozłączenie w IVR / kolejce).  
+- **Self-service rate** – odsetek spraw załatwionych w IVR.  
+- **Callback rate** – odsetek klientów wybierających oddzwonienie.  
 - **SLA** – odsetek spraw zamkniętych w wymaganym czasie (zgodnie z terminem SLA).
 
 ---
-
-## Pliki w repozytorium
-
-### BPMN
-
-- `bpmn/CC_Obsluga_Polaczenia_AS_IS.bpmn` – proces obecny (AS-IS).
-- `bpmn/CC_Obsluga_Polaczenia_TO_BE.bpmn` – proces docelowy z usprawnieniami (TO-BE).
-- `bpmn/CC_Obsluga_Polaczenia_AS_IS.png` – zrzut diagramu AS-IS.
-- `bpmn/CC_Obsluga_Polaczenia_TO_BE.png` – zrzut diagramu TO-BE.
-
-### SQL
-
-- `sql/01_contact_center_schema.sql` – schemat bazy (tabele i relacje).
-- `sql/02_contact_center_sample_data.sql` – dane przykładowe dla procesu Contact Center.
-- `sql/03_contact_center_kpi_queries.sql` – przykładowe zapytania SQL liczące KPI (ASA, AHT, FCR, SLA, self-service, callback) – jeśli taki plik dodasz.
-
-### Dokumentacja
-
-- `docs/opis_procesu_AS_IS.md` – opis procesu AS-IS (stan obecny, problemy).
-- `docs/opis_procesu_TO_BE.md` – opis procesu TO-BE (usprawnienia: self-service, callback, SLA itd.).
-- `docs/kpi_i_model_danych.md` – opis modelu danych oraz kluczowych KPI.
-
-### Pozostałe
-
-- `README.md` – podsumowanie projektu, instrukcja uruchomienia i kontekst biznesowy.
-
