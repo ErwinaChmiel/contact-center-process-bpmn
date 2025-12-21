@@ -2,7 +2,25 @@
 
 Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center. Projekt przedstawia kompletny cykl analityczny Contact Center — od modelowania procesów biznesowych (BPMN AS-IS i TO-BE), przez zaprojektowanie i zasilenie relacyjnej bazy danych SQL, aż po budowę zaawansowanego wielostronicowego dashboardu operacyjnego w Power BI.
 
+---
 
+## Cel projektu
+
+Celem projektu jest zaprezentowanie pełnego procesu pracy analityczki biznesowej:
+
+- modelowanie procesów biznesowych (BPMN 2.0),
+- projektowanie modelu danych pod analizę operacyjną,
+- tworzenie i ładowanie danych w relacyjnej bazie SQL,
+- budowa semantycznego modelu danych i DAX w Power BI,
+- tworzenie profesjonalnych dashboardów Contact Center,
+- analiza KPI: FCR, SLA, AHT, ASA, abandonment, callback, self-service.
+
+Projekt może służyć jako:
+- element portfolio rekrutacyjnego,
+- wzorzec prawdziwego raportowania Contact Center,
+- kompletny case study analityczny.
+
+---
 
 ## Zakres projektu
 
