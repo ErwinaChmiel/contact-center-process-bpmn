@@ -1,6 +1,8 @@
 # Optymalizacja procesu obsługi połączeń w Contact Center (BPMN + SQL)
 
-Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center.
+Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center. Projekt przedstawia kompletny cykl analityczny Contact Center — od modelowania procesów biznesowych (BPMN AS-IS i TO-BE), przez zaprojektowanie i zasilenie relacyjnej bazy danych SQL, aż po budowę zaawansowanego wielostronicowego dashboardu operacyjnego w Power BI.
+
+
 
 ## Zakres projektu
 
