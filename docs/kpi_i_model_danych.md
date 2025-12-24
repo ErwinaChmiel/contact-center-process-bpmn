@@ -1,5 +1,50 @@
 # Model danych i KPI
 
+## Diagram modelu danych
+
+Model danych został zaprojektowany w układzie zbliżonym do **gwiazdy** (star schema).  
+Poniżej prosty schemat relacji pomiędzy tabelami:
+
+```text
+                 ┌───────────────┐
+                 │  dimCustomers │
+                 │  customers    │
+                 └───────┬───────┘
+                         │ customer_id
+                         │
+                 ┌───────▼───────┐
+                 │   factCalls   │
+                 │    calls      │
+                 └──┬────┬───────┘
+            call_id │    │ agent_id
+                    │    │
+         first_call_id    │
+           ┌──────────────▼──────────────┐
+           │          dimAgents          │
+           │           agents            │
+           └─────────────────────────────┘
+
+                 ┌───────────────┐
+                 │   factCases   │
+                 │    cases      │
+                 └──┬────────────┘
+          case_id   │
+                    │ case_id
+             ┌──────▼───────┐
+             │ factContacts │
+             │  contacts    │
+             └──────────────┘
+
+                 ┌───────────────┐
+                 │   dimDate     │
+                 │  (Calendar)   │
+                 └────┬────┬─────┘
+                      │    │
+        Date ↔ start_time  │
+             (calls)       │
+                      Date ↔ opened_at / closed_at
+                           (cases)
+
 ## Model danych
 
 Projekt obejmuje prosty model danych wspierający analizę procesu Contact Center:
@@ -49,3 +94,5 @@ Dzięki takiej strukturze można powiązać:
 
 - **SLA** – odsetek spraw zamkniętych w wymaganym czasie:
   - sprawy z `resolved_in_sla = 1` wśród zamkniętych (`status = 'closed'`).
+ 
+
