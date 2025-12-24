@@ -77,7 +77,7 @@ Zaprojektowany został prosty, ale realistyczny model danych pod analitykę Cont
 
 W katalogu `powerbi/` znajduje się plik:
 
-- `ContactCenter.pbix` – dashboard zbudowany na bazie modelu danych z katalogu `sql/`.
+- `contact-center-kpis-dashboard.pbix` – dashboard zbudowany na bazie modelu danych z katalogu `sql/`.
 
 Dashboard prezentuje m.in.:
 
@@ -204,7 +204,7 @@ Model danych zawiera zestaw profesjonalnych miar, m.in.:
 - **Callback FCR** – sprawy rozwiązane w ramach callbacku,  
 - **Callback Delay** – średni czas oczekiwania na realizację callbacku.
 
-(Szczegółowa logika znajduje się w miarach DAX w pliku `ContactCenter.pbix`.)
+(Szczegółowa logika znajduje się w miarach DAX w pliku `contact-center-kpis-dashboard.pbix`.)
 
 ---
 
@@ -244,7 +244,7 @@ Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center z perspek
   - `kpi_i_model_danych.md` – opis modelu danych oraz kluczowych KPI.
 
 - `powerbi/`  
-  - `ContactCenter.pbix` – raport Power BI bazujący na modelu danych z katalogu `sql/`.
+  - `contact-center-kpis-dashboard.pbix` – raport Power BI bazujący na modelu danych z katalogu `sql/`.
 
 - `README.md` – podsumowanie projektu, instrukcja uruchomienia i kontekst biznesowy.
 
@@ -258,7 +258,7 @@ Projekt odzwierciedla rzeczywiste potrzeby zarządzania Contact Center z perspek
    - `02_contact_center_sample_data.sql` – wstawi dane przykładowe.
 3. Otwórz Power BI Desktop i połącz się z utworzoną bazą danych.
 4. Załaduj tabele: `calls`, `cases`, `contacts`, `agents`, `customers`.
-5. Otwórz plik `powerbi/ContactCenter.pbix` – dashboard automatycznie odświeży model i KPI na podstawie bazy.
+5. Otwórz plik `powerbi/contact-center-kpis-dashboard.pbix` – dashboard automatycznie odświeży model i KPI na podstawie bazy.
 
 ---
 
