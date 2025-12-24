@@ -45,6 +45,17 @@ Poniżej prosty schemat relacji pomiędzy tabelami:
                       Date ↔ opened_at / closed_at
                            (cases)
 
+| Tabela         | Rola w modelu | Ziarnistość (grain)                                         | Klucz główny  | Główne klucze obce / relacje                                                                                                         |
+| -------------- | ------------- | ----------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `calls`        | fact          | 1 wiersz = 1 połączenie (inbound / outbound, IVR / agent)   | `call_id`     | `customer_id` → `customers.customer_id`  • `agent_id` → `agents.agent_id` (jeśli odebrane)  • daty → `dimDate[Date]` (start_time)    |
+| `cases`        | fact          | 1 wiersz = 1 sprawa / zgłoszenie                            | `case_id`     | `customer_id` → `customers.customer_id`  • `first_call_id` → `calls.call_id`  • daty → `dimDate[Date]` (opened_at / closed_at)       |
+| `contacts`     | fact          | 1 wiersz = 1 kontakt konsultanta w ramach sprawy            | `contact_id`  | `case_id` → `cases.case_id` • `call_id` → `calls.call_id` • `customer_id` → `customers.customer_id` • `agent_id` → `agents.agent_id` |
+| `agents`       | dimension     | 1 wiersz = 1 konsultant                                     | `agent_id`    | Relacje z faktami: `calls.agent_id`, `contacts.agent_id`                                                                             |
+| `customers`    | dimension     | 1 wiersz = 1 klient                                         | `customer_id` | Relacje z faktami: `calls.customer_id`, `cases.customer_id`, `contacts.customer_id`                                                  |
+| `dimDate`      | dimension     | 1 wiersz = 1 dzień (z dodatkowymi atrybutami kalendarza)    | `Date`        | Łączona z polami daty w faktach (np. `calls.start_time`, `cases.opened_at`, `cases.closed_at`)                                       |
+| `measures_all` | helper        | Tabela techniczna – tylko miary DAX, brak danych fizycznych | –             | Służy do trzymania wszystkich miar KPI w jednym miejscu (ASA, AHT, FCR, SLA, Abandonment, Self-service, Callback itd.)               |
+
+
 ## Model danych
 
 Projekt obejmuje prosty model danych wspierający analizę procesu Contact Center:
