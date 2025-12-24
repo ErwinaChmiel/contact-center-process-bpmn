@@ -4,7 +4,7 @@
 
 Model jest zbudowany w układzie zbliżonym do **star schema** – tabele faktów (`calls`, `cases`, `contacts`) połączone z wymiarami (`customers`, `agents`, `dimDate`) oraz techniczną tabelą miar (`measures_all`).
 
-Poniżej diagram w formacie **Mermaid**:
+Poniżej diagram w formacie **Mermaid** (GitHub wyświetli go jako grafikę):
 
 ```mermaid
 erDiagram
@@ -91,7 +91,7 @@ erDiagram
       string  YearMonth
       int     Hour
     }
-
+```
 
 ## 2. Tabele i ich rola w modelu
 
@@ -109,32 +109,45 @@ erDiagram
 
 Model łączy perspektywę procesową (połączenia, sprawy, kontakty) z wymiarami klientów, konsultantów i czasu.
 
+### 3.1. Wymiary
+
 - `customers` – dane klientów (segment B2C/SME/Corporate, region), do analizy zachowań i obciążenia według segmentów.
 - `agents` – dane konsultantów (zespół 1st/2nd line, seniority), do analizy efektywności zespołów i pojedynczych osób.
+- `dimDate` – wymiar czasu (dzień, opcjonalnie godzina) do spójnego filtrowania i agregacji metryk.
+
+### 3.2. Fakty procesowe
+
 - `calls` – każdy telefon do / z contact center:
   - czasy: wejście na infolinię, wejście do IVR, wejście do kolejki, odebranie, zakończenie,
   - temat z IVR (faktury, reklamacje, techniczne),
   - flagi: samoobsługa, callback, porzucenie w kolejce, odebrane przez agenta.
+
 - `cases` – zgłoszenia:
   - kategoria (billing, reklamacje, techniczne),
   - priorytet,
   - eskalacja do 2nd line,
   - pola SLA (`sla_due_at`, `resolved_in_sla`),
   - sposób rozwiązania (`resolution_type`: `FCR` / `after_escalation` / `self_service` / `no_solution`).
+
 - `contacts` – każdy kontakt konsultanta w ramach sprawy:
   - który agent rozmawiał z klientem,
   - czy był to pierwszy kontakt,
   - czy sprawa została zamknięta w tym kontakcie.
 
+### 3.3. Co umożliwia model
+
 Dzięki takiej strukturze można:
-- prześledzić cały flow połączenia: IVR → kolejka → konsultant → zgłoszenie → rozwiązanie,
-- analizować SLA i FCR na poziomie spraw,
-- badać efektywność self-service i callbacków,
+
+- prześledzić cały flow połączenia: `IVR → kolejka → konsultant → zgłoszenie → rozwiązanie`,
+- analizować `SLA` i `FCR` na poziomie spraw (`cases`),
+- badać efektywność `self-service` i `callback`,
 - porównywać wyniki zespołów i agentów oraz segmentów klientów.
 
 ## 4. Kluczowe KPI (logika biznesowa)
 
-Poniżej logika najważniejszych KPI, które są zaimplementowane w miarach DAX w tabeli `measures_all`:
+Poniżej logika najważniejszych KPI, które są zaimplementowane w miarach DAX w tabeli `measures_all`.
+
+> Uwaga: nazwy pól są przykładowe i powinny odpowiadać implementacji w modelu (np. `queue_start_time`, `answer_time`, `end_time`).
 
 ### 4.1. Połączenia i kolejki
 
@@ -148,7 +161,7 @@ Poniżej logika najważniejszych KPI, które są zaimplementowane w miarach DAX 
 ### 4.2. Jakość obsługi
 
 - **FCR Cases** – liczba spraw z `resolution_type = 'FCR'`.
-- **FCR Rate** – udział **FCR Cases** w ogólnej liczbie spraw.
+- **FCR Rate** – udział FCR Cases w ogólnej liczbie spraw.
 - **Cases in SLA** – sprawy z `resolved_in_sla = 1`.
 - **SLA Rate** – udział spraw w SLA w ogólnej liczbie zamkniętych spraw.
 - **Escalated Cases / Escalation Rate** – sprawy z `is_escalated_to_2nd_line = 1` i ich udział procentowy.
