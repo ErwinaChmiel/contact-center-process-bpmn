@@ -177,13 +177,30 @@ Sekcje:
 
 ### 4.5. Strona 5 — Alerts & Exceptions
 
-Strona operacyjna dla managerów i liderów Contact Center, prezentująca wyjątki i obszary wymagające reakcji:
+Strona operacyjna dla managerów i liderów Contact Center, prezentująca wyjątki i obszary wymagające reakcji.
 
+Najważniejsze obszary alertowe:
 - sprawy po SLA (przekroczony termin realizacji),
-- nierozwiązane callbacki (wybrany, ale nie zrealizowany),
+- nierozwiązane callbacki (wybrane, ale niezrealizowane),
 - połączenia porzucone powyżej ustalonego progu czasu oczekiwania,
-- konsultanci z podwyższonym AHT,
-- lista wyjątków w formie tabeli (cases, callbacks, agents).
+- konsultanci z podwyższonym AHT.
+  
+#### KPI alertowe 
+- Cases Past SLA, Unresolved Callbacks, Abandoned Calls > X sec, Agents with High AHT,
+- KPI o celach 0 lub progowych (threshold-based).
+ 
+#### tabelę spraw po SLA 
+- tabela spraw po SLA: case_id, klient, status, priorytet, liczba dni po terminie.
+  
+#### Callback Alerts 
+- liczba callbacków niezrealizowanych w analizowanym okresie (z możliwością filtrowania po kolejce/segmencie).
+
+#### Agent Underperformance 
+– przegląd konsultantów z wysokim AHT i niskim FCR,
+- kolorowanie warunkowe oraz lista wyjątków w formie tabeli (agents).
+
+Strona służy jako „kokpit alarmowy” do codziennej pracy team leaderów.
+
 
 ---
 
