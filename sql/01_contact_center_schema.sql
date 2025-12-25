@@ -89,3 +89,81 @@ CREATE TABLE contacts (
     resolved_this_contact BIT DEFAULT 0,
     is_inbound            BIT DEFAULT 1
 );
+
+/* =========================================================
+   6. Klucze obce (FOREIGN KEY) – jawnie przez ALTER TABLE
+   ========================================================= */
+
+-- calls.customer_id  → customers.customer_id
+ALTER TABLE calls
+ADD CONSTRAINT FK_calls_customers
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(customer_id);
+
+-- calls.agent_id → agents.agent_id
+ALTER TABLE calls
+ADD CONSTRAINT FK_calls_agents
+    FOREIGN KEY (agent_id)
+    REFERENCES agents(agent_id);
+
+-- cases.customer_id → customers.customer_id
+ALTER TABLE cases
+ADD CONSTRAINT FK_cases_customers
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(customer_id);
+
+-- cases.first_call_id → calls.call_id
+ALTER TABLE cases
+ADD CONSTRAINT FK_cases_calls_firstcall
+    FOREIGN KEY (first_call_id)
+    REFERENCES calls(call_id);
+
+-- contacts.case_id → cases.case_id
+ALTER TABLE contacts
+ADD CONSTRAINT FK_contacts_cases
+    FOREIGN KEY (case_id)
+    REFERENCES cases(case_id);
+
+-- contacts.call_id → calls.call_id
+ALTER TABLE contacts
+ADD CONSTRAINT FK_contacts_calls
+    FOREIGN KEY (call_id)
+    REFERENCES calls(call_id);
+
+-- contacts.customer_id → customers.customer_id
+ALTER TABLE contacts
+ADD CONSTRAINT FK_contacts_customers
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(customer_id);
+
+-- contacts.agent_id → agents.agent_id
+ALTER TABLE contacts
+ADD CONSTRAINT FK_contacts_agents
+    FOREIGN KEY (agent_id)
+    REFERENCES agents(agent_id);
+
+/* =========================================================
+   4. Indeksy wspierające raportowanie Contact Center
+   ========================================================= */
+
+-- calls – najczęstsze joiny
+CREATE INDEX IX_calls_customer_id ON calls(customer_id);
+CREATE INDEX IX_calls_agent_id    ON calls(agent_id);
+CREATE INDEX IX_calls_start_time  ON calls(start_time);
+
+-- cases – analizy SLA / FCR / eskalacji
+CREATE INDEX IX_cases_customer_id    ON cases(customer_id);
+CREATE INDEX IX_cases_first_call_id  ON cases(first_call_id);
+CREATE INDEX IX_cases_opened_at      ON cases(opened_at);
+CREATE INDEX IX_cases_closed_at      ON cases(closed_at);
+CREATE INDEX IX_cases_resolved_sla   ON cases(resolved_in_sla);
+CREATE INDEX IX_cases_escalated      ON cases(is_escalated_to_2nd_line);
+
+-- contacts – analizy per agent / touchpoint
+CREATE INDEX IX_contacts_case_id     ON contacts(case_id);
+CREATE INDEX IX_contacts_call_id     ON contacts(call_id);
+CREATE INDEX IX_contacts_customer_id ON contacts(customer_id);
+CREATE INDEX IX_contacts_agent_id    ON contacts(agent_id);
+CREATE INDEX IX_contacts_time        ON contacts(contact_time);
+
+
