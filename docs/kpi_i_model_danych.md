@@ -175,3 +175,30 @@ Poniżej logika najważniejszych KPI, które są zaimplementowane w miarach DAX 
 - **Callback Rate** – udział połączeń z wyborem callbacku.
 - **Callback FCR** – sprawy rozwiązane podczas callbacku (np. `direction = 'outbound'` + `resolution_type = 'FCR'`).
 - **Callback Delay** – średni czas między pierwszym połączeniem a zrealizowanym oddzwonieniem.
+
+  ## Słownik miar DAX
+
+| Nazwa miary                | Skrót | Opis                                                       | Format     |
+|----------------------------|-------|------------------------------------------------------------|-----------|
+| Total Inbound Calls        | TIC   | Łączna liczba połączeń przychodzących                      | Liczba     |
+| Answered Calls             | AC    | Liczba połączeń odebranych przez konsultantów              | Liczba     |
+| Abandonment Rate           | AR    | Odsetek porzuconych połączeń                               | %         |
+| ASA (sec)                  | ASA   | Average Speed of Answer – średni czas oczekiwania (sekundy)| Liczba     |
+| AHT (sec)                  | AHT   | Average Handle Time – średni czas obsługi (sekundy)        | Liczba     |
+| Queue Time (sec)           | QT    | Średni czas spędzony w kolejce                             | Liczba     |
+| Self-service Calls         | SSC   | Liczba spraw załatwionych w IVR                            | Liczba     |
+| Self-service Rate          | SSR   | Udział spraw załatwionych w IVR                            | %         |
+| Callback Selected          | CBS   | Liczba klientów, którzy wybrali oddzwonienie               | Liczba     |
+| Callback Not Realized      | CBNR  | Liczba niezrealizowanych callbacków                        | Liczba     |
+| Callback Not Realized %    | CBNR% | Odsetek niezrealizowanych callbacków                       | %         |
+| Cases Total                | CT    | Liczba spraw w tabeli `cases`                              | Liczba     |
+| Cases in SLA               | CSLA  | Liczba spraw zamkniętych w terminie SLA                    | Liczba     |
+| SLA Rate                   | SLAR  | Odsetek spraw zamkniętych w terminie SLA                   | %         |
+| FCR Cases                  | FCRC  | Liczba spraw rozwiązanych przy pierwszym kontakcie         | Liczba     |
+| FCR Rate                   | FCRR  | Odsetek spraw z FCR                                        | %         |
+| FCR Rate by Agent          | FCRRA | FCR liczony na poziomie konsultanta                        | %         |
+| Escalated Cases            | ESC   | Liczba spraw eskalowanych do 2nd line                      | Liczba     |
+| Escalation Rate            | ESR   | Odsetek spraw eskalowanych                                 | %         |
+| Cases Past SLA             | CPS   | Liczba spraw zamkniętych po upływie SLA                    | Liczba     |
+| SLA Overdue (days)         | SLOD  | Liczba dni opóźnienia względem daty SLA                     | Liczba     |
+
