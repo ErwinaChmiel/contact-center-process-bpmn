@@ -34,8 +34,18 @@ Projekt może służyć jako:
 ---
 
 ## Zakres projektu
+### 1. Przykładowe pytania biznesowe, na które odpowiada dashboard
 
-### 1. Model procesu (BPMN 2.0 – Camunda Web Modeler)
+- W których godzinach infolinia ma największe obciążenie i najwięcej porzuconych połączeń?
+- Jaki jest poziom FCR oraz SLA dla całego Contact Center i poszczególnych zespołów?
+- Które typy spraw (faktury, reklamacje, techniczne) najczęściej wymagają eskalacji do 2nd line?
+- Ilu klientów wybiera samoobsługę w IVR, a ilu wymaga kontaktu z konsultantem?
+- Ilu konsultantów ma AHT powyżej celu oraz niższy FCR niż wymagany próg?
+- Ile spraw przekroczyło SLA w ostatnim analizowanym okresie (np. 7 lub 30 dni)?
+- Czy proces callbacków jest realizowany terminowo, czy rośnie liczba niezrealizowanych oddzwonień?
+
+
+### 2. Model procesu (BPMN 2.0 – Camunda Web Modeler)
 
 Proces obsługi połączeń przychodzących w Contact Center został zamodelowany w dwóch wariantach:
 
@@ -53,7 +63,7 @@ Proces obsługi połączeń przychodzących w Contact Center został zamodelowan
 
 ---
 
-### 2. Model danych + przykładowe dane (SQL)
+### 3. Model danych + przykładowe dane (SQL)
 
 Zaprojektowany został prosty, ale realistyczny model danych pod analitykę Contact Center:
 
@@ -73,7 +83,7 @@ Zaprojektowany został prosty, ale realistyczny model danych pod analitykę Cont
 
 ---
 
-### 3. Dashboard w Power BI
+### 4. Dashboard w Power BI
 
 W katalogu `powerbi/` znajduje się plik:
 
@@ -83,7 +93,7 @@ Dashboard prezentuje m.in.:
 
 ---
 
-### 3.1. Strona 1 — Executive KPI Overview
+### 4.1. Strona 1 — Executive KPI Overview
 
 KPI główne:
 
@@ -103,7 +113,7 @@ Dodatkowa analityka:
 
 ---
 
-### 3.2. Strona 2 — Call Flow / SLA / FCR / Callback Analysis
+### 4.2. Strona 2 — Call Flow / SLA / FCR / Callback Analysis
 
 Sekcje:
 
@@ -127,7 +137,7 @@ Przepływ klienta przez proces:
 
 ---
 
-### 3.3. Strona 3 — Operational Analytics
+### 4.3. Strona 3 — Operational Analytics
 
 Najważniejsze wskaźniki operacyjne:
 
@@ -143,7 +153,7 @@ Wizualizacje:
 
 ---
 
-### 3.4. Strona 4 — Segmentation & Agents Analysis
+### 4.4. Strona 4 — Segmentation & Agents Analysis
 
 Sekcje:
 
@@ -165,7 +175,7 @@ Sekcje:
 
 ---
 
-### 3.5. Strona 5 — Alerts & Exceptions
+### 4.5. Strona 5 — Alerts & Exceptions
 
 Strona operacyjna dla managerów i liderów Contact Center, prezentująca wyjątki i obszary wymagające reakcji:
 
