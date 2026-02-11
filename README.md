@@ -1,3 +1,5 @@
+![Contact Center Dashboard](assets/banner.png)
+
 # Optymalizacja procesu obsługi połączeń w Contact Center (BPMN + SQL + Power BI)
 
 Projekt własny pokazujący podejście analityczki biznesowo-danowej do procesu w dziale Contact Center.  
