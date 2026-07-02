@@ -1,71 +1,95 @@
+cat > business-analysis/analiza-interesariuszy.md <<'EOF'
 # Analiza interesariuszy
 
 ## Cel dokumentu
 
-Celem analizy jest identyfikacja kluczowych interesariuszy procesu Contact Center oraz określenie ich potrzeb, celów i problemów biznesowych.
+Celem dokumentu jest identyfikacja kluczowych interesariuszy procesu obsługi połączeń w Contact Center oraz określenie ich celów, potrzeb, problemów i oczekiwań wobec procesu TO-BE.
 
 ---
 
-## Klient
+## Interesariusze procesu
 
-### Cele
+### Klient
 
-- szybkie rozwiązanie problemu,
-- krótki czas oczekiwania,
-- wygodny kontakt z organizacją.
+#### Cele
 
-### Problemy
+- uzyskanie szybkiej odpowiedzi na zgłoszenie,
+- krótki czas oczekiwania na połączenie,
+- możliwość skorzystania z samoobsługi lub callbacku,
+- otrzymanie informacji o statusie sprawy.
 
-- długie kolejki,
-- konieczność wielokrotnego kontaktu,
-- brak informacji o statusie sprawy.
+#### Problemy w procesie AS-IS
+
+- długi czas oczekiwania w kolejce,
+- konieczność ponownego kontaktu w tej samej sprawie,
+- brak możliwości prostego sprawdzenia statusu sprawy,
+- ograniczona samoobsługa w IVR.
 
 ---
 
-## Konsultant Contact Center
+### Konsultant Contact Center
 
-### Cele
+#### Cele
 
-- szybki dostęp do informacji o kliencie,
-- sprawna obsługa zgłoszeń,
-- ograniczenie czynności manualnych.
+- szybki dostęp do danych klienta,
+- dostęp do historii kontaktów,
+- możliwość poprawnego oznaczenia przyczyny kontaktu,
+- sprawne przekazanie sprawy do 2nd line lub back-office.
 
-### Problemy
+#### Problemy w procesie AS-IS
 
 - brak pełnego kontekstu klienta,
-- konieczność pracy w wielu systemach,
+- konieczność pracy w kilku systemach,
+- ręczne oznaczanie statusów,
 - duże obciążenie w godzinach szczytu.
 
 ---
 
-## Lider Zespołu
+### Lider zespołu
 
-### Cele
+#### Cele
 
 - monitorowanie efektywności zespołu,
 - kontrola realizacji SLA,
-- identyfikacja problemów operacyjnych.
+- szybka identyfikacja problemów operacyjnych,
+- analiza jakości obsługi.
 
-### Kluczowe wskaźniki
+#### Kluczowe KPI
 
 - FCR,
 - SLA,
 - AHT,
-- Abandonment Rate.
+- ASA,
+- Abandonment Rate,
+- Callback Realization Rate.
 
 ---
 
-## Menedżer Contact Center
+### Menedżer Contact Center
 
-### Cele
+#### Cele
 
-- poprawa jakości obsługi,
+- poprawa jakości obsługi klienta,
 - optymalizacja kosztów operacyjnych,
-- zwiększenie satysfakcji klientów.
+- zwiększenie skuteczności samoobsługi,
+- podejmowanie decyzji na podstawie danych.
 
-### Kluczowe wskaźniki
+#### Kluczowe KPI
 
-- FCR,
-- SLA,
-- koszt obsługi kontaktu,
-- liczba zgłoszeń.
+- Service Level,
+- First Contact Resolution,
+- Cost per Contact,
+- liczba połączeń porzuconych,
+- liczba spraw przekroczonych po SLA.
+
+---
+
+## Podsumowanie interesariuszy
+
+| Interesariusz | Główna potrzeba | Wartość biznesowa |
+|---|---|---|
+| Klient | szybka obsługa sprawy | wyższa satysfakcja |
+| Konsultant | pełna informacja o kliencie | krótszy czas obsługi |
+| Lider zespołu | kontrola KPI | szybsza reakcja na problemy |
+| Menedżer | raportowanie i optymalizacja | decyzje oparte na danych |
+EOF
