@@ -1,1 +1,131 @@
+# Requirements Engineering
 
+## Business Context
+
+Contact Center obsługuje zgłoszenia klientów dotyczące faktur, reklamacji oraz problemów technicznych.
+
+Analiza procesu wykazała występowanie problemów wpływających na jakość obsługi klienta oraz efektywność operacyjną:
+
+- wysoki poziom porzuceń połączeń,
+- długi czas oczekiwania na połączenie z konsultantem,
+- nadmierne obciążenie konsultantów prostymi sprawami,
+- ograniczone możliwości monitorowania jakości procesu,
+- niewystarczająca ilość danych analitycznych dotyczących przyczyn kontaktów.
+
+W odpowiedzi na zidentyfikowane problemy przygotowano model procesu TO-BE uwzględniający mechanizmy self-service, callback oraz rozszerzone raportowanie KPI.
+
+---
+
+## Stakeholder Analysis
+
+### Customer
+
+Oczekiwania:
+
+- szybkie rozwiązanie problemu,
+- krótki czas oczekiwania,
+- możliwość oddzwonienia.
+
+### Contact Center Agent
+
+Oczekiwania:
+
+- szybki dostęp do danych klienta,
+- pełna historia kontaktów,
+- ograniczenie pracy manualnej.
+
+### Team Leader
+
+Oczekiwania:
+
+- monitorowanie KPI,
+- monitorowanie SLA,
+- identyfikacja obszarów wymagających poprawy.
+
+### Contact Center Manager
+
+Oczekiwania:
+
+- optymalizacja kosztów,
+- poprawa jakości obsługi,
+- poprawa wskaźników efektywności.
+
+---
+
+## Business Requirements
+
+### BR-01
+
+Zmniejszenie liczby porzuconych połączeń.
+
+### BR-02
+
+Skrócenie średniego czasu oczekiwania klienta.
+
+### BR-03
+
+Zwiększenie poziomu samoobsługi klientów.
+
+### BR-04
+
+Poprawa monitorowania efektywności pracy konsultantów.
+
+### BR-05
+
+Zapewnienie raportowania KPI w czasie zbliżonym do rzeczywistego.
+
+---
+
+## Functional Requirements
+
+### FR-01
+
+System umożliwia rejestrację wszystkich połączeń przychodzących.
+
+### FR-02
+
+System umożliwia klasyfikację przyczyny kontaktu.
+
+### FR-03
+
+System przechowuje historię kontaktów klienta.
+
+### FR-04
+
+System umożliwia obsługę procesu callback.
+
+### FR-05
+
+System rejestruje informacje wymagane do wyliczania KPI.
+
+### FR-06
+
+System umożliwia monitorowanie realizacji SLA.
+
+### FR-07
+
+System udostępnia dane do raportowania w Power BI.
+
+---
+
+## Non Functional Requirements
+
+### NFR-01
+
+Maksymalny czas odpowiedzi interfejsu użytkownika nie powinien przekraczać 2 sekund.
+
+### NFR-02
+
+Dostępność rozwiązania powinna wynosić minimum 99,5%.
+
+### NFR-03
+
+Wszystkie operacje użytkowników powinny być rejestrowane w logach systemowych.
+
+### NFR-04
+
+Komunikacja pomiędzy komponentami rozwiązania powinna odbywać się przez HTTPS.
+
+### NFR-05
+
+Rozwiązanie powinno umożliwiać obsługę minimum 10 000 połączeń dziennie.
