@@ -1,4 +1,3 @@
-cat > business-analysis/analiza-interesariuszy.md <<'EOF'
 # Analiza interesariuszy
 
 ## Cel dokumentu
