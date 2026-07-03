@@ -1,293 +1,432 @@
-# Kluczowe decyzje analityczne
+# Warsztaty analityczne i pozyskiwanie wymagań
 
 ## Cel dokumentu
 
-Dokument opisuje najważniejsze decyzje analityczne podjęte podczas przygotowania projektu Contact Center.
+Dokument opisuje podejście do pozyskiwania wymagań dla projektu optymalizacji procesu Contact Center.
 
-Celem nie jest przedstawienie gotowych odpowiedzi rekrutacyjnych, ale pokazanie logiki pracy analitycznej: w jaki sposób zidentyfikowano wymagania, dobrano KPI, zaprojektowano proces TO-BE, określono źródła danych oraz opisano integracje systemowe.
+Celem dokumentu jest pokazanie, w jaki sposób zidentyfikowano problemy biznesowe, potrzeby interesariuszy, wymagania, User Stories, kryteria akceptacji oraz dane niezbędne do raportowania KPI.
 
-Dokument uzupełnia główne artefakty projektu:
+Dokument uzupełnia:
 
 - analizę problemu biznesowego,
 - analizę interesariuszy,
 - wymagania,
 - User Stories,
 - kryteria akceptacji,
-- BPMN AS-IS / TO-BE,
-- architekturę,
-- integracje,
-- API,
+- proces BPMN AS-IS / TO-BE,
+- analizę integracji,
+- specyfikację API,
 - model danych SQL,
 - dashboard Power BI.
 
 ---
 
-## 1. Identyfikacja wymagań
+## Założenie warsztatowe
 
-Wymagania zostały wyprowadzone z analizy procesu AS-IS, problemów operacyjnych oraz potrzeb interesariuszy.
+Na potrzeby projektu przyjęto warsztatowe podejście do pozyskiwania wymagań.
 
-Punktem wyjścia nie była technologia ani dashboard, ale problemy biznesowe występujące w procesie obsługi połączeń przychodzących.
+Wymagania nie były definiowane od razu jako lista funkcji systemowych. Najpierw analizowano:
 
-W analizie uwzględniono m.in.:
+- jak obecnie przebiega proces,
+- kto uczestniczy w procesie,
+- gdzie pojawiają się problemy,
+- jakie są skutki biznesowe tych problemów,
+- jakie dane są dostępne,
+- jakie KPI powinny mierzyć skuteczność procesu,
+- jak powinien wyglądać proces docelowy TO-BE.
 
-- długi czas oczekiwania klientów,
-- porzucone połączenia,
-- ograniczony zakres samoobsługi w IVR,
-- brak callbacku jako alternatywy dla oczekiwania w kolejce,
-- ograniczoną kontrolę SLA,
+Dopiero na tej podstawie zidentyfikowano wymagania biznesowe, funkcjonalne, niefunkcjonalne, User Stories i kryteria akceptacji.
+
+---
+
+## Uczestnicy warsztatów
+
+W projekcie uwzględniono perspektywę następujących interesariuszy:
+
+| Rola | Perspektywa |
+|---|---|
+| Klient | Czas oczekiwania, łatwość kontaktu, możliwość callbacku i self-service |
+| Konsultant Contact Center | Obsługa połączeń, historia klienta, kategoryzacja kontaktu |
+| Lider zespołu | KPI, SLA, kolejki, obciążenie konsultantów, wyjątki operacyjne |
+| Menedżer Contact Center | Jakość obsługi, koszty, efektywność procesu, raportowanie zarządcze |
+| Back Office / 2nd Line | Eskalacje, statusy spraw, terminy SLA |
+| Analityk BI | Dane, KPI, model SQL, dashboard Power BI |
+| Zespół IT / integracyjny | Integracje, API, dostępność danych, wymagania niefunkcjonalne |
+
+---
+
+# 1. Warsztat otwierający — zrozumienie problemu biznesowego
+
+## Cel warsztatu
+
+Celem pierwszego warsztatu było zrozumienie, dlaczego proces wymaga usprawnienia i jakie problemy są najbardziej odczuwalne dla organizacji.
+
+## Pytania zadawane podczas warsztatu
+
+### Pytania o proces
+
+- Jak obecnie wygląda obsługa połączenia od momentu wejścia klienta do IVR?
+- Jakie są główne ścieżki klienta w procesie?
+- W których miejscach klient może zrezygnować z kontaktu?
+- Kiedy połączenie trafia do konsultanta 1st line?
+- Kiedy sprawa jest przekazywana do 2nd line lub back-office?
+- Czy proces wygląda tak samo dla faktur, reklamacji i problemów technicznych?
+- Które kroki procesu są wykonywane manualnie?
+- Które kroki procesu powodują największe opóźnienia?
+
+### Pytania o problemy biznesowe
+
+- Co jest obecnie największym problemem w obsłudze połączeń?
+- Czy największym problemem jest czas oczekiwania, porzucone połączenia, SLA czy jakość danych?
+- W jakich godzinach występuje największe przeciążenie infolinii?
+- Jak często klienci kontaktują się ponownie w tej samej sprawie?
+- Jakie typy spraw najczęściej wymagają eskalacji?
+- Czy proste sprawy trafiają do konsultantów mimo możliwości automatyzacji?
+- Jakie konsekwencje biznesowe mają porzucone połączenia?
+- Jakie konsekwencje ma brak pełnej informacji o przyczynie kontaktu?
+
+### Rezultat warsztatu
+
+Na podstawie warsztatu zidentyfikowano główne problemy biznesowe:
+
+- długi czas oczekiwania klienta,
+- wysoki poziom porzuconych połączeń,
+- ograniczony zakres self-service,
+- niewystarczającą kontrolę SLA,
 - brak spójnego tagowania przyczyn kontaktu,
-- potrzebę raportowania KPI.
-
-Na tej podstawie wymagania zostały podzielone na:
-
-- wymagania biznesowe,
-- wymagania funkcjonalne,
-- wymagania niefunkcjonalne.
-
-Takie podejście pozwoliło zachować śledzenie zależności pomiędzy problemem biznesowym, wymaganiem, User Story, KPI i rozwiązaniem.
+- ograniczoną widoczność KPI.
 
 ---
 
-## 2. Dobór KPI
+# 2. Warsztat z interesariuszami — potrzeby użytkowników
 
-KPI zostały dobrane tak, aby mierzyć najważniejsze problemy zidentyfikowane w procesie AS-IS oraz efekty proponowanych zmian w procesie TO-BE.
+## Cel warsztatu
 
-Nie były traktowane jako osobna warstwa raportowa, ale jako sposób oceny skuteczności procesu.
+Celem warsztatu było określenie potrzeb różnych grup uczestniczących w procesie Contact Center.
 
-| Problem / potrzeba | KPI | Uzasadnienie |
+Każda rola ma inną perspektywę, dlatego wymagania nie powinny być definiowane wyłącznie z poziomu raportowania lub systemu.
+
+---
+
+## Pytania do konsultantów Contact Center
+
+- Jakie informacje są potrzebne przed rozpoczęciem rozmowy z klientem?
+- Czy konsultant widzi historię kontaktów klienta?
+- Jak długo trwa odnalezienie informacji o kliencie?
+- Czy konsultant pracuje w jednym systemie, czy w kilku?
+- Jak oznaczana jest przyczyna kontaktu?
+- Czy lista kategorii kontaktu jest jednoznaczna?
+- Czy zdarza się zamknięcie sprawy bez wskazania przyczyny kontaktu?
+- Kiedy konsultant decyduje o eskalacji do 2nd line?
+- Jakie informacje powinny zostać przekazane przy eskalacji?
+- Co najbardziej wydłuża obsługę rozmowy?
+
+## Pytania do liderów zespołów
+
+- Jakie KPI są monitorowane codziennie?
+- Które KPI są najważniejsze dla oceny jakości obsługi?
+- Czy lider ma widok spraw po SLA?
+- Czy lider widzi niezrealizowane callbacki?
+- Czy można analizować wskaźniki per konsultant lub zespół?
+- Jak szybko lider dowiaduje się o problemach operacyjnych?
+- Czy dashboard powinien pokazywać alerty i wyjątki?
+- Jakie filtry są potrzebne w raporcie?
+- Jakie decyzje operacyjne są podejmowane na podstawie KPI?
+
+## Pytania do menedżera Contact Center
+
+- Jakie są główne cele biznesowe procesu Contact Center?
+- Jakie KPI są raportowane na poziomie zarządczym?
+- Czy obecne raportowanie wspiera podejmowanie decyzji?
+- Jakie informacje są potrzebne do planowania obsady?
+- Czy self-service może zmniejszyć koszt obsługi?
+- Czy callback może ograniczyć porzucone połączenia?
+- Jak mierzyć efektywność procesu TO-BE?
+- Jakie informacje powinny być widoczne w widoku executive dashboard?
+
+## Pytania do Back Office / 2nd Line
+
+- Jakie sprawy trafiają do 2nd line?
+- Jakie informacje są potrzebne do obsługi sprawy eskalowanej?
+- Czy powód eskalacji jest jednoznacznie zapisywany?
+- Czy sprawy eskalowane mają osobny status?
+- Jak monitorowany jest SLA dla spraw eskalowanych?
+- Czy są widoczne sprawy po terminie?
+- Co powoduje opóźnienia w obsłudze eskalacji?
+
+## Pytania do zespołu IT / integracyjnego
+
+- Jakie systemy uczestniczą w procesie?
+- Czy dane klienta pochodzą z CRM?
+- Czy Contact Center ma dostęp do historii kontaktów klienta?
+- Jakie dane przekazuje IVR?
+- Czy dane są dostępne przez API, eksport, pliki czy bazę danych?
+- Jak identyfikowany jest klient pomiędzy systemami?
+- Czy istnieje wspólny customerId?
+- Jakie są ograniczenia integracyjne?
+- Jak obsługiwane są błędy integracji?
+- Czy wymagane jest logowanie operacji użytkowników?
+- Jakie są wymagania dotyczące czasu odpowiedzi?
+
+---
+
+# 3. Warsztat AS-IS — analiza obecnego procesu
+
+## Cel warsztatu
+
+Celem warsztatu AS-IS było szczegółowe opisanie obecnego przebiegu procesu oraz identyfikacja miejsc, w których występują problemy operacyjne.
+
+## Pytania zadawane podczas analizy AS-IS
+
+- Od czego zaczyna się proces?
+- Jakie decyzje podejmuje klient w IVR?
+- Jak połączenie jest kierowane do kolejki?
+- Kiedy połączenie jest uznawane za porzucone?
+- Jak konsultant identyfikuje klienta?
+- Jak konsultant rejestruje kontakt?
+- Jak wygląda eskalacja do 2nd line?
+- Czy status sprawy jest aktualizowany automatycznie czy ręcznie?
+- Gdzie w procesie pojawia się opóźnienie?
+- Które kroki procesu nie dostarczają danych do raportowania?
+- Jakie dane są obecnie dostępne?
+- Jakich danych brakuje do wyliczenia KPI?
+
+## Rezultat warsztatu AS-IS
+
+Wynikiem warsztatu było przygotowanie procesu AS-IS oraz wskazanie głównych problemów:
+
+- długi czas oczekiwania w kolejce,
+- brak callbacku,
+- ograniczony self-service,
+- niespójne tagowanie przyczyn kontaktu,
+- ograniczona widoczność spraw po SLA,
+- ograniczone dane potrzebne do KPI.
+
+---
+
+# 4. Warsztat TO-BE — projektowanie procesu docelowego
+
+## Cel warsztatu
+
+Celem warsztatu TO-BE było zaprojektowanie usprawnień procesu, które odpowiadają na problemy zidentyfikowane w AS-IS.
+
+## Pytania zadawane podczas projektowania TO-BE
+
+### Self-service
+
+- Które sprawy mogą zostać obsłużone bez konsultanta?
+- Czy sprawy dotyczące faktur mogą być obsługiwane w IVR?
+- Jak rozpoznać, że sprawa nadaje się do self-service?
+- Jak mierzyć skuteczność self-service?
+- Czy self-service powinien kończyć proces bez tworzenia zgłoszenia do konsultanta?
+
+### Callback
+
+- W którym momencie klient powinien otrzymać możliwość callbacku?
+- Jakie dane są potrzebne do utworzenia callbacku?
+- Czy numer telefonu powinien być wymagany?
+- Jaki status powinien otrzymać nowy callback?
+- Jak oznaczać callback niezrealizowany?
+- Jak monitorować skuteczność callbacków?
+- Czy callback powinien wpływać na Abandonment Rate?
+
+### Tagowanie kontaktu
+
+- Jakie kategorie kontaktu powinny być dostępne?
+- Czy wybór kategorii powinien być obowiązkowy?
+- Czy konsultant może zmienić kategorię po zapisaniu?
+- Czy zmiana kategorii powinna być logowana?
+- Jak wykorzystać kategorie kontaktu w KPI?
+
+### SLA i eskalacje
+
+- Kiedy sprawa powinna zostać eskalowana?
+- Jakie statusy powinny mieć sprawy eskalowane?
+- Jak monitorować sprawy zagrożone przekroczeniem SLA?
+- Czy sprawy po SLA powinny być widoczne w osobnym widoku alertów?
+- Czy eskalacja powinna obniżać FCR?
+
+## Rezultat warsztatu TO-BE
+
+Na podstawie warsztatu zaprojektowano usprawnienia:
+
+- self-service w IVR,
+- callback,
+- obowiązkowe tagowanie przyczyny kontaktu,
+- rejestrację eskalacji,
+- monitoring SLA,
+- dane pod KPI i dashboard Power BI.
+
+---
+
+# 5. Warsztat KPI i raportowania
+
+## Cel warsztatu
+
+Celem warsztatu było ustalenie, jakie KPI powinny być mierzone oraz jakie decyzje biznesowe mają wspierać.
+
+## Pytania dotyczące KPI
+
+- Jakie wskaźniki najlepiej opisują efektywność Contact Center?
+- Czy KPI mierzą problem biznesowy, czy tylko wolumen pracy?
+- Jak mierzyć czas oczekiwania klienta?
+- Jak mierzyć czas obsługi konsultanta?
+- Jak mierzyć skuteczność pierwszego kontaktu?
+- Jak mierzyć porzucone połączenia?
+- Jak mierzyć terminowość realizacji spraw?
+- Jak mierzyć skuteczność callbacków?
+- Jak mierzyć udział self-service?
+- Jak mierzyć eskalacje?
+- Które KPI powinny być widoczne dla lidera zespołu?
+- Które KPI powinny być widoczne dla menedżera?
+
+## Pytania dotyczące dashboardu
+
+- Jakie widoki są potrzebne na poziomie operacyjnym?
+- Jakie widoki są potrzebne na poziomie zarządczym?
+- Czy raport powinien mieć widok alertów?
+- Jakie filtry są niezbędne?
+- Czy potrzebna jest analiza per konsultant?
+- Czy potrzebna jest analiza per zespół?
+- Czy potrzebna jest analiza według kategorii spraw?
+- Czy dashboard powinien pokazywać trendy?
+- Czy dashboard powinien pokazywać wyjątki, np. sprawy po SLA?
+
+## Rezultat warsztatu KPI
+
+Na podstawie warsztatu wybrano KPI:
+
+| KPI | Cel |
+|---|---|
+| ASA | Pomiar czasu oczekiwania |
+| AHT | Pomiar czasu obsługi |
+| FCR | Pomiar skuteczności pierwszego kontaktu |
+| SLA Rate | Pomiar terminowości obsługi |
+| Abandonment Rate | Pomiar porzuconych połączeń |
+| Callback Rate | Pomiar wykorzystania callbacków |
+| Callback Realization Rate | Pomiar realizacji callbacków |
+| Self-service Rate | Pomiar automatyzacji prostych spraw |
+| Escalation Rate | Pomiar spraw przekazywanych do 2nd line |
+
+---
+
+# 6. Warsztat danych i jakości danych
+
+## Cel warsztatu
+
+Celem warsztatu było określenie, jakie dane są wymagane do wyliczenia KPI oraz jakie reguły jakości danych powinny zostać zastosowane.
+
+## Pytania dotyczące danych
+
+- Jakie dane są potrzebne do wyliczenia ASA?
+- Jakie dane są potrzebne do wyliczenia AHT?
+- Jakie dane są potrzebne do wyliczenia FCR?
+- Jakie dane są potrzebne do wyliczenia SLA?
+- Jakie dane są potrzebne do monitorowania callbacków?
+- Jakie dane są potrzebne do monitorowania self-service?
+- Czy każda sprawa ma unikalny identyfikator?
+- Czy każde połączenie ma unikalny identyfikator?
+- Czy każdy callback ma status?
+- Czy każdy kontakt ma kategorię?
+- Czy każda eskalacja ma powód?
+- Czy dane z IVR można powiązać z danymi z CRM?
+- Czy dane z Contact Center można powiązać z danymi SQL?
+- Czy są braki w danych historycznych?
+
+## Pytania dotyczące jakości danych
+
+- Które pola powinny być obowiązkowe?
+- Jak obsługiwać brak customerId?
+- Jak obsługiwać brak numeru telefonu dla callbacku?
+- Jak obsługiwać brak statusu callbacku?
+- Jak oznaczać kontakty bez kategorii?
+- Czy rekordy niepełne powinny być wykluczane z KPI?
+- Czy rekordy niepełne powinny być pokazywane jako osobna kategoria jakości danych?
+- Jak monitorować jakość danych w dashboardzie?
+
+## Rezultat warsztatu danych
+
+Na podstawie warsztatu określono:
+
+- tabele modelu SQL,
+- relacje między danymi,
+- pola wymagane do KPI,
+- reguły jakości danych,
+- sposób obsługi danych niepełnych,
+- źródła danych dla dashboardu Power BI.
+
+---
+
+# 7. Warsztat integracji i API
+
+## Cel warsztatu
+
+Celem warsztatu było określenie, jakie komponenty systemowe uczestniczą w procesie oraz jakie integracje są potrzebne do obsługi procesu TO-BE.
+
+## Pytania dotyczące integracji
+
+- Jakie dane przekazuje IVR do Contact Center?
+- Jak Contact Center identyfikuje klienta?
+- Jak Contact Center pobiera dane klienta z CRM?
+- Jak zapisywana jest historia kontaktu?
+- Jak zapisywany jest callback?
+- Jak aktualizowany jest status zgłoszenia?
+- Jak dane trafiają do SQL?
+- Jak Power BI pobiera dane?
+- Czy integracje są synchroniczne czy asynchroniczne?
+- Jak obsługiwane są błędy integracyjne?
+- Co dzieje się, gdy CRM nie odpowiada?
+- Co dzieje się, gdy zapis do SQL się nie powiedzie?
+
+## Pytania dotyczące API
+
+- Jakie endpointy są potrzebne do obsługi procesu TO-BE?
+- Jak powinien wyglądać request dla callbacku?
+- Jak powinien wyglądać response?
+- Jakie statusy HTTP powinny być obsługiwane?
+- Jakie błędy biznesowe mogą wystąpić?
+- Czy endpoint powinien walidować numer telefonu?
+- Czy endpoint powinien sprawdzać istnienie klienta?
+- Czy można utworzyć drugi aktywny callback dla tej samej sprawy?
+- Czy status zgłoszenia powinien mieć słownik wartości?
+
+## Rezultat warsztatu integracyjnego
+
+Na podstawie warsztatu opisano:
+
+- architekturę logiczną,
+- integracje między systemami,
+- przykładowe endpointy REST API,
+- reguły biznesowe dla API,
+- standard odpowiedzi błędów,
+- specyfikację OpenAPI.
+
+---
+
+# 8. Przykładowe decyzje podjęte na podstawie warsztatów
+
+| Obszar | Decyzja | Uzasadnienie |
 |---|---|---|
-| Długi czas oczekiwania klienta | ASA | Mierzy średni czas oczekiwania na odpowiedź konsultanta |
-| Długi czas obsługi | AHT | Pozwala analizować czas potrzebny na obsługę połączenia |
-| Porzucone połączenia | Abandonment Rate | Pokazuje skalę klientów rezygnujących z oczekiwania |
-| Skuteczność pierwszego kontaktu | FCR | Mierzy, czy sprawa została rozwiązana bez ponownego kontaktu |
-| Terminowość obsługi | SLA Rate | Pozwala monitorować realizację spraw w wymaganym czasie |
-| Skuteczność callbacków | Callback Realization Rate | Pokazuje, czy zaplanowane oddzwonienia są realizowane |
-| Automatyzacja prostych spraw | Self-service Rate | Mierzy udział spraw obsłużonych w IVR bez konsultanta |
-| Eskalacje | Escalation Rate | Pokazuje udział spraw wymagających przekazania do 2nd line |
-
-Dzięki takiemu doborowi KPI dashboard pokazuje nie tylko wolumen danych, ale również jakość i efektywność procesu.
-
----
-
-## 3. Różnica pomiędzy AS-IS i TO-BE
-
-Model AS-IS został przygotowany w celu opisania aktualnego przebiegu procesu oraz wskazania miejsc, w których pojawiają się problemy operacyjne.
-
-W procesie AS-IS klient przechodzi przez IVR, trafia do kolejki, a następnie do konsultanta 1st line. Bardziej złożone sprawy są eskalowane do 2nd line lub back-office. W obecnym procesie występują jednak problemy związane z długim czasem oczekiwania, porzuconymi połączeniami, brakiem callbacku i ograniczoną samoobsługą.
-
-Model TO-BE został przygotowany jako odpowiedź na te problemy.
-
-Najważniejsze usprawnienia w TO-BE:
-
-| Obszar | AS-IS | TO-BE |
-|---|---|---|
-| Oczekiwanie w kolejce | Klient czeka na połączenie z konsultantem | Klient może wybrać callback |
-| Proste sprawy | Wymagają kontaktu z konsultantem | Część spraw obsługiwana jest przez self-service w IVR |
-| Dane o kontakcie | Ograniczone lub niespójne tagowanie | Konsultant taguje powód kontaktu i wynik rozmowy |
-| SLA | Ograniczona kontrola i opóźniona reakcja | SLA monitorowane przez dane i dashboard |
-| Eskalacje | Przekazywane do 2nd line / back-office | Eskalacje są rejestrowane i widoczne w KPI |
-| Raportowanie | Ograniczona widoczność procesu | Dashboard prezentuje KPI i wyjątki operacyjne |
-
-Proces TO-BE został więc zaprojektowany nie tylko jako zmiana przebiegu procesu, ale również jako podstawa do lepszego raportowania i zarządzania operacyjnego.
-
----
-
-## 4. Źródła danych do KPI
-
-Dane potrzebne do KPI pochodzą z kilku obszarów procesu.
-
-W projekcie założono, że źródłem danych są komponenty takie jak IVR, system Contact Center, CRM, Back Office / 2nd Line oraz warstwa SQL wykorzystywana do raportowania.
-
-| KPI | Źródło danych | Przykładowe tabele / obszary |
-|---|---|---|
-| ASA | Dane o połączeniach | calls |
-| AHT | Dane o połączeniach i kontaktach | calls, contacts |
-| FCR | Dane o sprawach i kontaktach | cases, contacts |
-| SLA | Dane o zgłoszeniach i terminach | cases, sla_events |
-| Abandonment Rate | Dane o połączeniach porzuconych | calls |
-| Callback Rate | Dane o callbackach | callbacks |
-| Callback Realization Rate | Statusy callbacków | callbacks |
-| Self-service Rate | Dane z IVR / Contact Center | calls |
-| Escalation Rate | Dane o eskalacjach | cases, contacts |
-
-Takie podejście pokazuje, że dashboard KPI jest końcowym efektem przepływu danych przez proces i systemy, a nie niezależnym raportem oderwanym od źródeł danych.
-
----
-
-## 5. Integracja Contact Center z CRM
-
-Integracja Contact Center z CRM została opisana jako jeden z kluczowych elementów rozwiązania, ponieważ konsultant potrzebuje dostępu do danych klienta oraz historii wcześniejszych kontaktów.
-
-Celem integracji jest:
-
-- identyfikacja klienta,
-- pobranie danych klienta,
-- pobranie historii kontaktów,
-- aktualizacja historii kontaktu po zakończeniu rozmowy,
-- zapewnienie danych do raportowania KPI.
-
-Przykładowy przepływ:
-
-```text
-Contact Center → CRM
-Zapytanie o dane klienta
-
-CRM → Contact Center
-Zwrot danych klienta i historii kontaktów
-
-Contact Center → CRM
-Zapis informacji o nowym kontakcie
-```
-
-Zakres danych obejmuje m.in.:
-
-| Dane | Cel |
-|---|---|
-| customerId | Identyfikacja klienta |
-| customerSegment | Analiza segmentacyjna |
-| customerStatus | Kontekst obsługi |
-| openCases | Widoczność aktywnych spraw |
-| interactionHistory | Historia kontaktów dla konsultanta |
-| contactCategory | Dane do KPI i analizy przyczyn kontaktu |
-| ticketStatus | Monitorowanie statusu sprawy |
-
-Taka integracja wspiera zarówno obsługę klienta w czasie rozmowy, jak i późniejsze raportowanie operacyjne.
-
----
-
-## 6. Endpoint callbacku
-
-Endpoint callbacku został opisany jako przykładowa operacja REST API wspierająca proces TO-BE.
-
-Jego celem jest zarejestrowanie zgłoszenia oddzwonienia dla klienta, który nie chce oczekiwać w kolejce.
-
-Przykładowa operacja:
-
-```http
-POST /api/v1/callbacks
-```
-
-Przykładowy request:
-
-```json
-{
-  "customerId": 1001,
-  "phoneNumber": "+48123456789",
-  "preferredTime": "2026-07-01T14:30:00Z",
-  "reason": "INVOICE"
-}
-```
-
-Przykładowa odpowiedź:
-
-```json
-{
-  "callbackId": 501,
-  "customerId": 1001,
-  "status": "SCHEDULED",
-  "createdAt": "2026-07-01T12:15:00Z"
-}
-```
-
-Reguły biznesowe dla endpointu:
-
-| ID | Reguła |
-|---|---|
-| BR.CB.01 | Callback może zostać utworzony tylko dla istniejącego klienta |
-| BR.CB.02 | Numer telefonu jest wymagany |
-| BR.CB.03 | Nowy callback otrzymuje status SCHEDULED |
-| BR.CB.04 | Aktywny callback powinien być widoczny w danych raportowych |
-| BR.CB.05 | Niezrealizowany callback powinien być oznaczony jako wyjątek operacyjny |
-
-Endpoint callbacku pokazuje, w jaki sposób wymaganie biznesowe dotyczące ograniczenia oczekiwania w kolejce może zostać przełożone na operację systemową.
-
----
-
-## 7. Kryteria akceptacji dla callbacku
-
-Kryteria akceptacji dla callbacku zostały przygotowane tak, aby były zrozumiałe zarówno dla biznesu, jak i zespołu technicznego.
-
-Celem callbacku jest ograniczenie liczby porzuconych połączeń oraz poprawa doświadczenia klienta.
-
-Kryteria akceptacji:
-
-| ID | Kryterium |
-|---|---|
-| AC.CB.01 | Klient może wybrać callback w IVR |
-| AC.CB.02 | System zapisuje numer telefonu klienta |
-| AC.CB.03 | Callback otrzymuje status „Zaplanowany” |
-| AC.CB.04 | Callback jest widoczny w danych raportowych |
-| AC.CB.05 | Niezrealizowany callback jest oznaczony jako wyjątek operacyjny |
-| AC.CB.06 | Callback nie może zostać utworzony bez numeru telefonu |
-| AC.CB.07 | Status callbacku może zostać wykorzystany do wyliczenia Callback Realization Rate |
-
-Przykładowy scenariusz akceptacyjny:
-
-```gherkin
-Given klient oczekuje w kolejce
-When klient wybiera opcję callbacku w IVR
-Then system zapisuje zgłoszenie callbacku
-And callback otrzymuje status "Zaplanowany"
-And callback jest widoczny w raporcie operacyjnym
-```
-
----
-
-## 8. Postępowanie przy niepełnych danych o callbackach
-
-Niepełne dane o callbackach wpływają bezpośrednio na jakość KPI, zwłaszcza Callback Rate, Callback Realization Rate oraz widok alertów operacyjnych.
-
-W przypadku braków danych należałoby najpierw określić, jakiego typu dane są niepełne:
-
-| Brakujące dane | Potencjalny wpływ |
-|---|---|
-| Brak statusu callbacku | Nie można określić, czy callback został zrealizowany |
-| Brak numeru telefonu | Callback nie powinien zostać utworzony |
-| Brak daty utworzenia | Trudna analiza terminowości |
-| Brak daty realizacji | Nie można policzyć opóźnienia callbacku |
-| Brak powodu kontaktu | Trudna analiza źródeł zgłoszeń |
-| Brak customerId | Utrudnione powiązanie callbacku z klientem |
-
-Rekomendowane działania:
-
-1. Zidentyfikować zakres braków danych.
-2. Sprawdzić, czy problem powstaje w IVR, Contact Center, CRM czy warstwie SQL.
-3. Wprowadzić reguły jakości danych dla callbacków.
-4. Zdefiniować statusy obowiązkowe, np. SCHEDULED, COMPLETED, CANCELLED, MISSED.
-5. Oznaczać rekordy niepełne jako wyjątki danych.
-6. Nie usuwać rekordów niepełnych bez analizy przyczyny.
-7. W dashboardzie pokazać metrykę jakości danych dla callbacków.
-8. Ustalić, czy KPI powinny wykluczać rekordy niepełne, czy prezentować je jako osobną kategorię.
-
-Przykładowe reguły jakości danych:
-
-| ID | Reguła |
-|---|---|
-| DQ.CB.01 | Każdy callback musi mieć unikalny callbackId |
-| DQ.CB.02 | Każdy callback musi mieć status |
-| DQ.CB.03 | Callback bez numeru telefonu powinien zostać oznaczony jako błąd walidacji |
-| DQ.CB.04 | Data realizacji nie może być wcześniejsza niż data utworzenia |
-| DQ.CB.05 | Callback ze statusem COMPLETED powinien mieć datę realizacji |
-| DQ.CB.06 | Callback bez customerId powinien być oznaczony jako callback niezidentyfikowany |
-
-Takie podejście pozwala nie tylko poprawić jakość raportowania, ale również znaleźć przyczynę problemu w procesie lub integracji.
+| Self-service | Proste sprawy fakturowe mogą kończyć się w IVR | Ograniczenie obciążenia konsultantów |
+| Callback | Klient może wybrać oddzwonienie zamiast oczekiwania | Redukcja porzuconych połączeń |
+| Tagowanie | Kategoria kontaktu jest obowiązkowa | Poprawa jakości danych i raportowania |
+| SLA | Sprawy po terminie są widoczne jako alert | Szybsza reakcja lidera zespołu |
+| Eskalacje | Eskalacje mają status i powód | Lepsza analiza pracy 2nd line |
+| KPI | Wybrano ASA, AHT, FCR, SLA, Abandonment Rate, Callback Rate | KPI mierzą kluczowe problemy biznesowe |
+| SQL | Dane procesowe są mapowane do relacyjnego modelu | Umożliwienie raportowania Power BI |
+| API | Callback, klient, historia kontaktów, status zgłoszenia i KPI mają opisane endpointy | Pokazanie przepływu danych i operacji systemowych |
 
 ---
 
 ## Podsumowanie
 
-Kluczowe decyzje analityczne w projekcie opierały się na zasadzie:
+Warsztaty analityczne pozwoliły przejść od ogólnego problemu biznesowego do konkretnych wymagań, procesu TO-BE, operacji API, modelu danych i dashboardu KPI.
+
+Najważniejszą zasadą było powiązanie każdego elementu rozwiązania z realną potrzebą procesu:
 
 ```text
-Problem biznesowy → wymagania → proces → dane → integracje → KPI → dashboard
+Problem → pytanie warsztatowe → wymaganie → User Story → kryterium akceptacji → dane → KPI → dashboard
 ```
 
-Dzięki temu każdy element projektu ma uzasadnienie:
+Dzięki temu projekt pokazuje nie tylko końcowy efekt w Power BI, ale również sposób dochodzenia do rozwiązania analitycznego i systemowego.
 
-- wymagania wynikają z problemów biznesowych,
-- User Stories wynikają z potrzeb interesariuszy,
-- proces TO-BE odpowiada na problemy AS-IS,
-- integracje pokazują przepływ danych między systemami,
-- API opisuje wybrane operacje systemowe,
-- model SQL umożliwia wyliczenie KPI,
-- dashboard Power BI wspiera decyzje operacyjne.
