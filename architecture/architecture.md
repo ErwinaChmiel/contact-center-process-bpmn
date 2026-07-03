@@ -163,23 +163,26 @@ Warstwa raportowa odpowiada za prezentację KPI i alertów.
 
 ## Przepływ danych
 
-```mermaid
-sequenceDiagram
-    participant Customer as Klient
-    participant IVR as IVR
-    participant CC as Contact Center
-    participant CRM as CRM
-    participant DB as SQL Database
-    participant PBI as Power BI
 
-    Customer->>IVR: Połączenie przychodzące
-    IVR->>CC: Przekazanie tematu sprawy
-    CC->>CRM: Pobranie danych klienta
-    CRM-->>CC: Dane klienta i historia kontaktów
-    CC->>DB: Zapis połączenia i kontaktu
-    CC->>DB: Zapis statusu sprawy / callbacku
-    DB->>PBI: Dane do raportowania KPI
+```mermaid
+flowchart LR
+    Customer[Klient]
+    IVR[IVR]
+    CC[System Contact Center]
+    CRM[CRM]
+    DB[(SQL Database)]
+    PBI[Power BI Dashboard]
+    Manager[Team Leader / Manager]
+
+    Customer --> IVR
+    IVR --> CC
+    CC --> CRM
+    CC --> DB
+    CRM --> DB
+    DB --> PBI
+    PBI --> Manager
 ```
+
 
 ---
 
