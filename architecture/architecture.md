@@ -1,7 +1,3 @@
-
-mkdir -p architecture
-
-cat > architecture/architecture.md <<'EOF'
 # Architektura rozwiązania — Contact Center
 
 ## Cel dokumentu
