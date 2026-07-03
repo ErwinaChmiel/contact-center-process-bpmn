@@ -1,22 +1,22 @@
-# Kryteria akceptacji
+# Kryteria akceptacji — Contact Center
 
 ## Cel dokumentu
 
 Dokument opisuje kryteria akceptacji dla kluczowych User Stories z projektu optymalizacji procesu Contact Center.
 
-Kryteria akceptacji określają warunki, które muszą zostać spełnione, aby dana funkcjonalność mogła zostać uznana za zrealizowaną z perspektywy biznesowej i systemowej.
+Kryteria akceptacji określają warunki, które muszą zostać spełnione, aby dana funkcjonalność mogła zostać uznana za zrealizowaną z perspektywy biznesowej, systemowej i raportowej.
 
 ---
 
 ## Standard zapisu
 
-Kryteria akceptacji zostały opisane w formie:
+Kryteria akceptacji zostały opisane poprzez:
 
-- warunków biznesowych,
-- oczekiwanego zachowania systemu,
-- kryteriów jakościowych,
-- powiązania z wymaganiami funkcjonalnymi,
-- powiązania z KPI.
+- powiązanie z User Story,
+- powiązanie z wymaganiami,
+- mierzalne warunki akceptacji,
+- scenariusz akceptacyjny w formacie Gherkin,
+- powiązanie z KPI.
 
 ---
 
@@ -24,7 +24,7 @@ Kryteria akceptacji zostały opisane w formie:
 
 ## Powiązana User Story
 
-**US.01 — Historia kontaktów klienta**
+**US.02 — Historia kontaktów klienta**
 
 Jako konsultant Contact Center  
 chcę widzieć historię kontaktów klienta  
@@ -59,13 +59,20 @@ And kontakty są posortowane od najnowszych do najstarszych
 And czas odpowiedzi nie przekracza 2 sekund
 ```
 
+## Powiązane KPI
+
+| KPI | Uzasadnienie |
+|---|---|
+| AHT | Dostęp do historii klienta może skrócić czas obsługi |
+| FCR | Lepszy kontekst klienta może zwiększyć skuteczność pierwszego kontaktu |
+
 ---
 
 # AC.02 — Callback
 
 ## Powiązana User Story
 
-**US.02 — Callback**
+**US.04 — Rejestracja callbacku**
 
 Jako klient  
 chcę mieć możliwość zamówienia oddzwonienia  
@@ -87,8 +94,8 @@ aby nie musieć oczekiwać w kolejce.
 | AC.02.01 | Klient może wybrać callback w IVR | Funkcjonalne |
 | AC.02.02 | System zapisuje numer telefonu klienta | Funkcjonalne |
 | AC.02.03 | Nowy callback otrzymuje status „Zaplanowany” | Funkcjonalne |
-| AC.02.04 | Callback jest widoczny w danych raportowych | Funkcjonalne |
-| AC.02.05 | Niezrealizowany callback jest oznaczany jako wyjątek operacyjny | Funkcjonalne |
+| AC.02.04 | Callback jest widoczny w danych raportowych | Raportowe |
+| AC.02.05 | Niezrealizowany callback jest oznaczany jako wyjątek operacyjny | Raportowe |
 | AC.02.06 | Callback nie może zostać utworzony bez numeru telefonu | Walidacyjne |
 
 ## Scenariusz akceptacyjny
@@ -101,13 +108,21 @@ And callback otrzymuje status "Zaplanowany"
 And callback jest widoczny w raporcie operacyjnym
 ```
 
+## Powiązane KPI
+
+| KPI | Uzasadnienie |
+|---|---|
+| Callback Rate | Mierzy liczbę klientów wybierających oddzwonienie |
+| Callback Realization Rate | Mierzy skuteczność realizacji callbacków |
+| Abandonment Rate | Callback powinien ograniczyć liczbę połączeń porzuconych |
+
 ---
 
 # AC.03 — Tagowanie przyczyny kontaktu
 
 ## Powiązana User Story
 
-**US.03 — Tagowanie przyczyny kontaktu**
+**US.03 — Kategoryzacja przyczyny kontaktu**
 
 Jako konsultant  
 chcę oznaczyć przyczynę kontaktu klienta  
@@ -140,13 +155,21 @@ Then system blokuje zamknięcie zgłoszenia
 And wyświetla komunikat o konieczności wyboru kategorii
 ```
 
+## Powiązane KPI
+
+| KPI | Uzasadnienie |
+|---|---|
+| Contact Category Analysis | Pozwala analizować główne powody kontaktu |
+| FCR | Kategorie kontaktu mogą wskazywać sprawy trudniejsze do rozwiązania przy pierwszym kontakcie |
+| Self-service Rate | Kategorie kontaktu pomagają wskazać sprawy możliwe do automatyzacji |
+
 ---
 
 # AC.04 — Monitorowanie KPI
 
 ## Powiązana User Story
 
-**US.04 — Monitorowanie KPI**
+**US.10 — Dashboard FCR / US.11 — Dashboard AHT i ASA / US.12 — Dashboard porzuceń połączeń**
 
 Jako lider zespołu  
 chcę monitorować KPI operacyjne  
@@ -181,13 +204,23 @@ Then system prezentuje KPI dla wybranego zakresu
 And dashboard pokazuje SLA, FCR, AHT, ASA oraz Abandonment Rate
 ```
 
+## Powiązane KPI
+
+| KPI | Uzasadnienie |
+|---|---|
+| SLA | Monitorowanie terminowości obsługi |
+| FCR | Monitorowanie skuteczności pierwszego kontaktu |
+| AHT | Monitorowanie czasu obsługi |
+| ASA | Monitorowanie czasu oczekiwania |
+| Abandonment Rate | Monitorowanie porzuconych połączeń |
+
 ---
 
 # AC.05 — Eskalacja do 2nd line
 
 ## Powiązana User Story
 
-**US.05 — Eskalacja do 2nd line**
+**US.08 — Obsługa eskalacji do 2nd line**
 
 Jako konsultant  
 chcę przekazać sprawę do 2nd line  
@@ -223,17 +256,25 @@ And zapisuje powód eskalacji
 And sprawa jest widoczna w raporcie eskalacji
 ```
 
+## Powiązane KPI
+
+| KPI | Uzasadnienie |
+|---|---|
+| Escalation Rate | Mierzy udział spraw przekazanych do 2nd line |
+| SLA | Eskalacje wpływają na terminowość obsługi |
+| FCR | Eskalacja oznacza brak rozwiązania przy pierwszym kontakcie |
+
 ---
 
 ## Macierz User Story → Kryteria akceptacji
 
 | User Story | Kryteria akceptacji |
 |---|---|
-| US.01 — Historia kontaktów klienta | AC.01.01 - AC.01.05 |
-| US.02 — Callback | AC.02.01 - AC.02.06 |
-| US.03 — Tagowanie przyczyny kontaktu | AC.03.01 - AC.03.05 |
-| US.04 — Monitorowanie KPI | AC.04.01 - AC.04.07 |
-| US.05 — Eskalacja do 2nd line | AC.05.01 - AC.05.06 |
+| US.02 — Historia kontaktów klienta | AC.01.01 - AC.01.05 |
+| US.04 — Rejestracja callbacku | AC.02.01 - AC.02.06 |
+| US.03 — Kategoryzacja przyczyny kontaktu | AC.03.01 - AC.03.05 |
+| US.10 / US.11 / US.12 — Dashboard KPI | AC.04.01 - AC.04.07 |
+| US.08 — Obsługa eskalacji do 2nd line | AC.05.01 - AC.05.06 |
 
 ---
 
@@ -262,5 +303,3 @@ Funkcjonalność może zostać uznana za ukończoną, jeżeli:
 | Spójność procesu | Funkcjonalność jest zgodna z procesem TO-BE |
 | Możliwość raportowania | Dane mogą być wykorzystane w dashboardzie Power BI |
 | Brak błędów krytycznych | Funkcjonalność nie powoduje błędów blokujących proces |
-
-
