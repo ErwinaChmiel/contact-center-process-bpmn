@@ -1,12 +1,24 @@
-# Inżynieria wymagań
+# Inżynieria wymagań — Contact Center
+
+## Cel dokumentu
+
+Celem dokumentu jest uporządkowanie zidentyfikowanych problemów biznesowych, wymagań biznesowych, funkcjonalnych i niefunkcjonalnych dla procesu obsługi połączeń w Contact Center.
+
+Dokument pokazuje powiązanie pomiędzy problemami operacyjnymi, wymaganiami, procesem TO-BE, danymi oraz KPI wykorzystywanymi w dashboardzie Power BI.
+
+---
 
 ## Kontekst biznesowy
 
-Proces Contact Center obejmuje obsługę połączeń przychodzących dotyczących faktur, reklamacji, spraw technicznych oraz zgłoszeń wymagających eskalacji do 2nd line lub back-office.
+Proces Contact Center obejmuje obsługę połączeń przychodzących dotyczących:
+
+- faktur,
+- reklamacji,
+- spraw technicznych,
+- zgłoszeń wymagających eskalacji do 2nd line lub back-office,
+- spraw możliwych do obsługi przez self-service lub callback.
 
 Analiza procesu AS-IS wykazała problemy wpływające na jakość obsługi klienta oraz efektywność operacyjną zespołu Contact Center.
-
-Celem dokumentu jest uporządkowanie zidentyfikowanych problemów, wymagań biznesowych, funkcjonalnych i niefunkcjonalnych oraz wskazanie źródeł wymagań wykorzystanych w projekcie.
 
 ---
 
@@ -73,6 +85,21 @@ Celem dokumentu jest uporządkowanie zidentyfikowanych problemów, wymagań bizn
 
 ---
 
+## Macierz wymagań → KPI
+
+| Wymaganie | Powiązane KPI | Uzasadnienie |
+|---|---|---|
+| WF.01 | ASA, AHT, Abandonment Rate | Rejestracja połączeń umożliwia analizę czasu oczekiwania, obsługi i porzuceń |
+| WF.02 | AHT, FCR | Identyfikacja klienta i historia kontaktów mogą skrócić obsługę oraz poprawić FCR |
+| WF.03 | FCR, Contact Category Analysis, Self-service Rate | Kategoryzacja kontaktów pozwala analizować powody zgłoszeń i potencjał automatyzacji |
+| WF.04 | Callback Rate, Abandonment Rate | Callback może ograniczyć liczbę porzuconych połączeń |
+| WF.05 | Callback Realization Rate | Status callbacku pozwala monitorować skuteczność oddzwonień |
+| WF.06 | Escalation Rate, SLA, FCR | Eskalacje wpływają na terminowość obsługi i skuteczność pierwszego kontaktu |
+| WF.07 | Wszystkie KPI | Dane raportowe są podstawą dashboardu operacyjnego |
+| WF.08 | SLA, FCR, AHT, ASA, Abandonment Rate | Analiza KPI pozwala monitorować efektywność procesu |
+
+---
+
 ## Źródła wymagań
 
 | Źródło | Zakres informacji | Efekt analizy |
@@ -107,4 +134,18 @@ Celem dokumentu jest uporządkowanie zidentyfikowanych problemów, wymagań bizn
 | OOS.03 | Produkcyjna integracja z IVR | Proces IVR został odwzorowany na poziomie analitycznym |
 | OOS.04 | Mechanizm rzeczywistego kolejkowania połączeń | Projekt skupia się na danych i raportowaniu |
 
+---
 
+## Podsumowanie
+
+Wymagania zostały zdefiniowane na podstawie problemów biznesowych, analizy procesu AS-IS, potrzeb interesariuszy oraz oczekiwanych KPI.
+
+Dokument pokazuje pełną ścieżkę analityczną:
+
+- problem biznesowy,
+- wymaganie biznesowe,
+- wymaganie funkcjonalne,
+- wymaganie niefunkcjonalne,
+- KPI,
+- zakres danych,
+- założenia i ograniczenia projektu.
