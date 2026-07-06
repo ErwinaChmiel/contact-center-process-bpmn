@@ -159,6 +159,20 @@ Dzięki temu repozytorium pokazuje nie tylko końcowy dashboard, ale cały proce
 
 ---
 
+## Szybkie linki do folderów
+
+| Obszar | Folder |
+|---|---|
+| Project overview | 00_project-overview/ |
+| Business analysis | 01_business-analysis/ |
+| Process analysis — BPMN | 02_process-analysis/ |
+| Solution architecture | 03_solution-architecture/ |
+| Data model — SQL | 04_data-model/ |
+| Power BI dashboard | 05_power-bi-dashboard/ |
+| Documentation | 06_documentation/ |
+
+---
+
 ## Struktura repozytorium
 
 Projekt został podzielony na ponumerowane foldery, aby pokazać kolejność pracy analitycznej — od kontekstu biznesowego do procesu, API, modelu danych i dashboardu KPI.
@@ -239,34 +253,34 @@ Projekt został ułożony tak, aby pokazać pełną ścieżkę pracy analityczne
 Rekomendowana kolejność czytania:
 
 1. Zacznij od `README.md`, aby zrozumieć cel projektu, zakres i strukturę repozytorium.
-2. Przejdź do `00_project-overview/`, aby poznać kontekst projektu, założenia oraz sposób czytania repozytorium.
-3. Następnie otwórz `01_business-analysis/`, gdzie znajdują się:
+2. Przejdź do 00_project-overview/, aby poznać kontekst projektu, założenia oraz sposób czytania repozytorium.
+3. Następnie otwórz 01_business-analysis/, gdzie znajdują się:
    - problem biznesowy,
    - interesariusze,
    - wymagania,
    - User Stories,
    - kryteria akceptacji,
    - backlog produktu.
-4. Przejdź do `02_process-analysis/`, aby porównać proces:
+4. Przejdź do 02_process-analysis/, aby porównać proces:
    - AS-IS — stan obecny,
    - TO-BE — proces docelowy po usprawnieniach.
-5. Sprawdź `03_solution-architecture/`, aby zobaczyć:
+5. Sprawdź 03_solution-architecture/, aby zobaczyć:
    - architekturę logiczną rozwiązania,
    - integracje między systemami,
    - przykładową specyfikację REST API,
    - plik OpenAPI `03_04_openapi.yaml`.
-6. Przejdź do `04_data-model/`, aby zobaczyć:
+6. Przejdź do 04_data-model/, aby zobaczyć:
    - schemat bazy danych,
    - dane przykładowe,
    - zapytania SQL liczące KPI,
    - opis modelu danych.
-7. Otwórz `05_power-bi-dashboard/`, aby zobaczyć:
+7. Otwórz 05_power-bi-dashboard/, aby zobaczyć:
    - plik Power BI,
    - podglądy stron dashboardu,
    - opis wniosków biznesowych,
    - eksport miar DAX,
    - opis modelu semantycznego.
-8. Na końcu sprawdź `06_documentation/`, gdzie znajdują się:
+8. Na końcu sprawdź 06_documentation/, gdzie znajdują się:
    - podejście analityczne,
    - słownik pojęć,
    - macierz śladowania wymagań,
@@ -285,59 +299,59 @@ Problem biznesowy → wymagania → proces BPMN → architektura → API → SQL
 
 | Obszar | Plik |
 |---|---|
-| Kontekst projektu | `00_project-overview/00_01_project-context.md` |
-| Instrukcja czytania projektu | `00_project-overview/00_02_how-to-read-this-project.md` |
-| Zakres i założenia | `00_project-overview/00_03_scope-and-assumptions.md` |
-| Warsztaty wymagań | `00_project-overview/00_04_requirements-workshops.md` |
-| Problem biznesowy | `01_business-analysis/01_01_business-problem.md` |
-| Analiza interesariuszy | `01_business-analysis/01_02_stakeholder-analysis.md` |
-| Wymagania | `01_business-analysis/01_03_requirements.md` |
-| User Stories | `01_business-analysis/01_04_user-stories.md` |
-| Kryteria akceptacji | `01_business-analysis/01_05_acceptance-criteria.md` |
-| Backlog | `01_business-analysis/01_06_backlog.md` |
-| Proces AS-IS BPMN | `02_process-analysis/02_01_bpmn-as-is.bpmn` |
-| Proces TO-BE BPMN | `02_process-analysis/02_03_bpmn-to-be.bpmn` |
-| Podgląd AS-IS | `02_process-analysis/02_02_bpmn-as-is.png` |
-| Podgląd TO-BE | `02_process-analysis/02_04_bpmn-to-be.png` |
-| Opis procesu AS-IS | `02_process-analysis/02_05_as-is-process-description.md` |
-| Opis procesu TO-BE | `02_process-analysis/02_06_to-be-process-description.md` |
-| Decyzje modelowania BPMN | `02_process-analysis/02_07_bpmn-modeling-decisions.md` |
-| Architektura logiczna | `03_solution-architecture/03_01_architecture.md` |
-| Integracje | `03_solution-architecture/03_02_integrations.md` |
-| REST API | `03_solution-architecture/03_03_api-specification.md` |
-| OpenAPI | `03_solution-architecture/03_04_openapi.yaml` |
-| API governance | `03_solution-architecture/03_05_api-governance-notes.md` |
-| Model danych SQL | `04_data-model/04_01_database-schema.sql` |
-| Dane przykładowe | `04_data-model/04_02_sample-data.sql` |
-| Zapytania KPI | `04_data-model/04_03_kpi-queries.sql` |
-| Opis modelu danych | `04_data-model/04_04_data-model-description.md` |
-| Dashboard Power BI | `05_power-bi-dashboard/05_01_contact-center-kpis-dashboard.pbix` |
-| Dashboard overview | `05_power-bi-dashboard/05_02_dashboard-overview.png` |
-| Call Flow / SLA / FCR / Callback | `05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png` |
-| Operational Analytics | `05_power-bi-dashboard/05_04_operational-analytics.png` |
-| Segments & Agents Analysis | `05_power-bi-dashboard/05_05_segments-and-agents-analysis.png` |
-| Alerts & Exceptions | `05_power-bi-dashboard/05_06_alerts-and-exceptions.png` |
-| Opis stron KPI dashboardu | `05_power-bi-dashboard/05_07_dashboard-kpi-pages.md` |
-| Wnioski biznesowe z dashboardu | `05_power-bi-dashboard/05_08_dashboard-business-insights.md` |
-| Miary DAX | `05_power-bi-dashboard/dax/` |
-| Model semantyczny Power BI | `05_power-bi-dashboard/semantic-model/` |
-| Macierz śladowania | `06_documentation/06_03_traceability-matrix.md` |
-| Security & data governance | `06_documentation/06_05_security-and-data-governance.md` |
+| Kontekst projektu | 00_project-overview/00_01_project-context.md |
+| Instrukcja czytania projektu | 00_project-overview/00_02_how-to-read-this-project.md |
+| Zakres i założenia | 00_project-overview/00_03_scope-and-assumptions.md |
+| Warsztaty wymagań | 00_project-overview/00_04_requirements-workshops.md |
+| Problem biznesowy | 01_business-analysis/01_01_business-problem.md |
+| Analiza interesariuszy | 01_business-analysis/01_02_stakeholder-analysis.md |
+| Wymagania | 01_business-analysis/01_03_requirements.md |
+| User Stories | 01_business-analysis/01_04_user-stories.md |
+| Kryteria akceptacji | 01_business-analysis/01_05_acceptance-criteria.md |
+| Backlog | 01_business-analysis/01_06_backlog.md |
+| Proces AS-IS BPMN | 02_process-analysis/02_01_bpmn-as-is.bpmn |
+| Proces TO-BE BPMN | 02_process-analysis/02_03_bpmn-to-be.bpmn |
+| Podgląd AS-IS | 02_process-analysis/02_02_bpmn-as-is.png |
+| Podgląd TO-BE | 02_process-analysis/02_04_bpmn-to-be.png |
+| Opis procesu AS-IS | 02_process-analysis/02_05_as-is-process-description.md |
+| Opis procesu TO-BE | 02_process-analysis/02_06_to-be-process-description.md |
+| Decyzje modelowania BPMN | 02_process-analysis/02_07_bpmn-modeling-decisions.md |
+| Architektura logiczna | 03_solution-architecture/03_01_architecture.md |
+| Integracje | 03_solution-architecture/03_02_integrations.md |
+| REST API | 03_solution-architecture/03_03_api-specification.md |
+| OpenAPI | 03_solution-architecture/03_04_openapi.yaml |
+| API governance | 03_solution-architecture/03_05_api-governance-notes.md |
+| Model danych SQL | 04_data-model/04_01_database-schema.sql |
+| Dane przykładowe | 04_data-model/04_02_sample-data.sql |
+| Zapytania KPI | 04_data-model/04_03_kpi-queries.sql |
+| Opis modelu danych | 04_data-model/04_04_data-model-description.md |
+| Dashboard Power BI | 05_power-bi-dashboard/05_01_contact-center-kpis-dashboard.pbix |
+| Dashboard overview | 05_power-bi-dashboard/05_02_dashboard-overview.png |
+| Call Flow / SLA / FCR / Callback | 05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png |
+| Operational Analytics | 05_power-bi-dashboard/05_04_operational-analytics.png |
+| Segments & Agents Analysis | 05_power-bi-dashboard/05_05_segments-and-agents-analysis.png |
+| Alerts & Exceptions | 05_power-bi-dashboard/05_06_alerts-and-exceptions.png |
+| Opis stron KPI dashboardu | 05_power-bi-dashboard/05_07_dashboard-kpi-pages.md |
+| Wnioski biznesowe z dashboardu | 05_power-bi-dashboard/05_08_dashboard-business-insights.md |
+| Miary DAX | 05_power-bi-dashboard/dax/ |
+| Model semantyczny Power BI | 05_power-bi-dashboard/semantic-model/ |
+| Macierz śladowania | 06_documentation/06_03_traceability-matrix.md |
+| Security & data governance | 06_documentation/06_05_security-and-data-governance.md |
 
 ---
 
 ## 01. Business Analysis
 
-Folder `01_business-analysis/` zawiera dokumenty opisujące warstwę biznesową projektu.
+Folder 01_business-analysis/ zawiera dokumenty opisujące warstwę biznesową projektu.
 
 Zawartość:
 
-- `01_01_business-problem.md` — analiza problemu biznesowego,
-- `01_02_stakeholder-analysis.md` — analiza interesariuszy,
-- `01_03_requirements.md` — wymagania biznesowe, funkcjonalne i niefunkcjonalne,
-- `01_04_user-stories.md` — User Stories,
-- `01_05_acceptance-criteria.md` — kryteria akceptacji,
-- `01_06_backlog.md` — backlog produktu.
+- 01_business-analysis/01_01_business-problem.md — analiza problemu biznesowego,
+- 01_business-analysis/01_02_stakeholder-analysis.md — analiza interesariuszy,
+- 01_business-analysis/01_03_requirements.md — wymagania biznesowe, funkcjonalne i niefunkcjonalne,
+- 01_business-analysis/01_04_user-stories.md — User Stories,
+- 01_business-analysis/01_05_acceptance-criteria.md — kryteria akceptacji,
+- 01_business-analysis/01_06_backlog.md — backlog produktu.
 
 Ta część pokazuje, dlaczego projekt jest potrzebny, jakie problemy rozwiązuje i jakie wymagania wynikają z procesu Contact Center.
 
@@ -345,7 +359,7 @@ Ta część pokazuje, dlaczego projekt jest potrzebny, jakie problemy rozwiązuj
 
 ## 02. Process Analysis — BPMN AS-IS / TO-BE
 
-Folder `02_process-analysis/` zawiera modele procesu w notacji BPMN 2.0.
+Folder 02_process-analysis/ zawiera modele procesu w notacji BPMN 2.0.
 
 Proces został zamodelowany w dwóch wariantach:
 
@@ -373,25 +387,25 @@ Proces docelowy po usprawnieniach:
 
 ### Podgląd procesu AS-IS
 
-02_process-analysis/02_02_bpmn-as-is.png
+02_process-analysis/02_02_bpmn-as-is.png](02_process-analysis/02_02_bpmn-as-is.png)
 
 ### Podgląd procesu TO-BE
 
-02_process-analysis/02_04_bpmn-to-be.png
+02_process-analysis/02_04_bpmn-to-be.png](02_process-analysis/02_04_bpmn-to-be.png)
 
 ---
 
 ## 03. Solution Architecture
 
-Folder `03_solution-architecture/` opisuje warstwę systemową projektu.
+Folder 03_solution-architecture/ opisuje warstwę systemową projektu.
 
 Zawartość:
 
-- `03_01_architecture.md` — architektura logiczna rozwiązania,
-- `03_02_integrations.md` — analiza integracji i przepływu danych,
-- `03_03_api-specification.md` — przykładowa specyfikacja REST API,
-- `03_04_openapi.yaml` — przykładowa specyfikacja OpenAPI 3.0,
-- `03_05_api-governance-notes.md` — notatki dotyczące API governance.
+- 03_solution-architecture/03_01_architecture.md — architektura logiczna rozwiązania,
+- 03_solution-architecture/03_02_integrations.md — analiza integracji i przepływu danych,
+- 03_solution-architecture/03_03_api-specification.md — przykładowa specyfikacja REST API,
+- 03_solution-architecture/03_04_openapi.yaml — przykładowa specyfikacja OpenAPI 3.0,
+- 03_solution-architecture/03_05_api-governance-notes.md — notatki dotyczące API governance.
 
 Ta część pokazuje, jak proces biznesowy może zostać przełożony na komponenty systemowe, dane i integracje.
 
@@ -409,7 +423,7 @@ Uwzględnione komponenty:
 
 ## 04. Data Model — SQL
 
-Folder `04_data-model/` zawiera model danych oraz skrypty SQL.
+Folder 04_data-model/ zawiera model danych oraz skrypty SQL.
 
 Model danych został zaprojektowany tak, aby umożliwić analizę operacyjną Contact Center oraz wyliczenie KPI.
 
@@ -436,7 +450,7 @@ Dane przykładowe odzwierciedlają scenariusze biznesowe, takie jak:
 
 ## 05. Power BI Dashboard
 
-Folder `05_power-bi-dashboard/` zawiera raport Power BI oraz podglądy kluczowych stron dashboardu.
+Folder 05_power-bi-dashboard/ zawiera raport Power BI oraz podglądy kluczowych stron dashboardu.
 
 Dashboard prezentuje m.in.:
 
@@ -483,7 +497,7 @@ Widoczne są m.in.:
 - Contact Reasons Breakdown,
 - Case Categories Distribution.
 
-05_power-bi-dashboard/05_02_dashboard-overview.png
+05_power-bi-dashboard/05_02_dashboard-overview.png](05_power-bi-dashboard/05_02_dashboard-overview.png)
 
 ### 2. Call Flow / SLA / FCR / Callback
 
@@ -501,7 +515,7 @@ Widoczne są m.in.:
 - Callback Effectiveness,
 - Average Callback Delay.
 
-05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png
+05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png](05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png)
 
 ### 3. Operational Analytics
 
@@ -516,7 +530,7 @@ Widoczne są m.in.:
 - AHT Trend,
 - Inbound Calls by Hour.
 
-05_power-bi-dashboard/05_04_operational-analytics.png
+05_power-bi-dashboard/05_04_operational-analytics.png](05_power-bi-dashboard/05_04_operational-analytics.png)
 
 ### 4. Segments & Agents Analysis
 
@@ -533,7 +547,7 @@ Widoczne są m.in.:
 - FCR by Customer Segment,
 - Trend Analysis for Agents.
 
-05_power-bi-dashboard/05_05_segments-and-agents-analysis.png
+05_power-bi-dashboard/05_05_segments-and-agents-analysis.png](05_power-bi-dashboard/05_05_segments-and-agents-analysis.png)
 
 ### 5. Alerts & Exceptions
 
@@ -549,7 +563,7 @@ Widoczne są m.in.:
 - alerty callbacków,
 - tabela konsultantów wymagających analizy.
 
-05_power-bi-dashboard/05_06_alerts-and-exceptions.png
+05_power-bi-dashboard/05_06_alerts-and-exceptions.png](05_power-bi-dashboard/05_06_alerts-and-exceptions.png)
 
 ---
 
@@ -589,9 +603,7 @@ Projekt można uruchamiać warstwowo — od modelu danych SQL, przez zapytania K
 
 Szczegółowa instrukcja uruchomienia znajduje się w pliku:
 
-```text
 06_documentation/06_04_run-instructions.md
-```
 
 ### Szybki start
 
@@ -665,9 +677,7 @@ Dashboard Power BI pokazuje, jak dane z modelu SQL mogą zostać wykorzystane do
 
 Tak. Projekt zawiera opis przykładowej specyfikacji REST API oraz plik OpenAPI:
 
-```text
 03_solution-architecture/03_04_openapi.yaml
-```
 
 Specyfikacja obejmuje przykładowe endpointy, m.in.:
 
@@ -683,9 +693,7 @@ Tak, częściowo. Można lokalnie uruchomić warstwę danych SQL i zapytania KPI
 
 Szczegółowa instrukcja znajduje się w pliku:
 
-```text
 06_documentation/06_04_run-instructions.md
-```
 
 ### Dla jakich ról ten projekt jest przygotowany?
 
