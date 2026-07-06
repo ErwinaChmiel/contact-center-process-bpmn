@@ -1,0 +1,637 @@
+openapi: 3.0.3
+info:
+  title: Contact Center Process API
+  version: 1.1.0
+  description: >
+    OpenAPI specification aligned with the Contact Center process optimization
+    case study, SQL Server data model and Power BI KPI layer. The API uses the
+    same core entities as the database: customers, calls, cases, contacts,
+    callbacks and SLA events.
+
+servers:
+  - url: https://api.example.com
+    description: Example production API endpoint
+  - url: https://sandbox.api.example.com
+    description: Example sandbox API endpoint
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Customers
+    description: Customer context and contact history
+  - name: Calls
+    description: Call details captured from IVR and Contact Center systems
+  - name: Cases
+    description: Case status management and escalation flow
+  - name: Callbacks
+    description: Callback request and realization handling
+  - name: KPI
+    description: Aggregated Contact Center KPI reporting
+
+paths:
+  /api/v1/customers/{customerId}:
+    get:
+      tags: [Customers]
+      summary: Get customer details
+      operationId: getCustomerById
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 10001
+      responses:
+        '200':
+          description: Customer details returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/customers/{customerId}/contacts:
+    get:
+      tags: [Customers]
+      summary: Get customer contact history
+      operationId: getCustomerContacts
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 10001
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Customer contact history returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactHistoryResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/calls/{callId}:
+    get:
+      tags: [Calls]
+      summary: Get call details
+      operationId: getCallById
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: callId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 50001
+      responses:
+        '200':
+          description: Call details returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Call'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/cases/{caseId}/status:
+    put:
+      tags: [Cases]
+      summary: Update case status
+      description: Updates case status after call handling, escalation or closure.
+      operationId: updateCaseStatus
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: caseId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 30001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCaseStatusRequest'
+            example:
+              status: escalated
+              resolutionType: after_escalation
+              escalationReason: Requires 2nd line verification
+              updatedByAgentId: 201
+      responses:
+        '200':
+          description: Case status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/callbacks:
+    post:
+      tags: [Callbacks]
+      summary: Create callback request
+      description: Creates a callback request when a customer chooses callback instead of waiting in the queue.
+      operationId: createCallback
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCallbackRequest'
+            example:
+              sourceCallId: 50001
+              customerId: 10001
+              scheduledAt: '2026-07-06T14:30:00+02:00'
+              phoneMasked: '+48***123123'
+      responses:
+        '201':
+          description: Callback request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Active callback already exists for this source call
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/callbacks/{callbackId}/status:
+    put:
+      tags: [Callbacks]
+      summary: Update callback status
+      operationId: updateCallbackStatus
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: callbackId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 70001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCallbackStatusRequest'
+      responses:
+        '200':
+          description: Callback status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/kpi/contact-center:
+    get:
+      tags: [KPI]
+      summary: Get Contact Center KPI summary
+      operationId: getContactCenterKpi
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2026-07-01'
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2026-07-31'
+        - name: channel
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [phone, chat, email]
+      responses:
+        '200':
+          description: KPI summary returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCenterKpiResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      description: Correlation identifier used for tracing requests across systems.
+      schema:
+        type: string
+        maxLength: 100
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: Prevents duplicate callback creation when a client retries POST requests.
+      schema:
+        type: string
+        maxLength: 100
+
+  responses:
+    BadRequest:
+      description: Invalid request payload or business rule violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    Customer:
+      type: object
+      required: [customerId, customerName, segment, region, isActive]
+      properties:
+        customerId:
+          type: integer
+          example: 10001
+        customerName:
+          type: string
+          example: Sample Customer 10001
+        segment:
+          type: string
+          enum: [B2C, SME, Corporate]
+        region:
+          type: string
+          example: Mazowieckie
+        isActive:
+          type: boolean
+          example: true
+
+    Call:
+      type: object
+      required: [callId, customerId, startTime, endTime, direction, channel, callOutcome]
+      properties:
+        callId:
+          type: integer
+          example: 50001
+        customerId:
+          type: integer
+          example: 10001
+        agentId:
+          type: integer
+          nullable: true
+          example: 201
+        startTime:
+          type: string
+          format: date-time
+        answerTime:
+          type: string
+          format: date-time
+          nullable: true
+        endTime:
+          type: string
+          format: date-time
+        direction:
+          type: string
+          enum: [inbound, outbound]
+        channel:
+          type: string
+          enum: [phone, chat, email]
+        ivrTopic:
+          type: string
+          nullable: true
+          example: billing
+        callOutcome:
+          type: string
+          enum: [answered, abandoned, self_service, callback_requested, callback_completed]
+        isSelfService:
+          type: boolean
+        isCallbackChosen:
+          type: boolean
+        isAbandonedInQueue:
+          type: boolean
+
+    Case:
+      type: object
+      required: [caseId, customerId, firstCallId, openedAt, status, caseCategory, priority, slaDueAt]
+      properties:
+        caseId:
+          type: integer
+          example: 30001
+        customerId:
+          type: integer
+          example: 10001
+        firstCallId:
+          type: integer
+          example: 50001
+        openedAt:
+          type: string
+          format: date-time
+        closedAt:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [open, in_progress, escalated, closed]
+        caseCategory:
+          type: string
+          example: billing
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        isEscalatedTo2ndLine:
+          type: boolean
+        slaDueAt:
+          type: string
+          format: date-time
+        resolvedInSla:
+          type: boolean
+          nullable: true
+        resolutionType:
+          type: string
+          nullable: true
+          enum: [FCR, after_escalation, self_service, no_solution]
+
+    Contact:
+      type: object
+      properties:
+        contactId:
+          type: integer
+          example: 90001
+        caseId:
+          type: integer
+          example: 30001
+        callId:
+          type: integer
+          example: 50001
+        customerId:
+          type: integer
+          example: 10001
+        agentId:
+          type: integer
+          nullable: true
+          example: 201
+        contactTime:
+          type: string
+          format: date-time
+        channel:
+          type: string
+          enum: [phone, chat, email]
+        contactType:
+          type: string
+          enum: [inbound_call, outbound_callback, backoffice_update]
+        isFirstContact:
+          type: boolean
+        resolvedThisContact:
+          type: boolean
+
+    ContactHistoryResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 3
+        limit:
+          type: integer
+          example: 20
+        offset:
+          type: integer
+          example: 0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+
+    CreateCallbackRequest:
+      type: object
+      required: [sourceCallId, customerId, scheduledAt, phoneMasked]
+      properties:
+        sourceCallId:
+          type: integer
+          example: 50001
+        customerId:
+          type: integer
+          example: 10001
+        scheduledAt:
+          type: string
+          format: date-time
+        phoneMasked:
+          type: string
+          example: '+48***123123'
+
+    UpdateCallbackStatusRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [requested, scheduled, completed, cancelled, failed, overdue]
+        realizedCallId:
+          type: integer
+          nullable: true
+          example: 50098
+        failureReason:
+          type: string
+          nullable: true
+        agentId:
+          type: integer
+          nullable: true
+          example: 201
+
+    Callback:
+      type: object
+      properties:
+        callbackId:
+          type: integer
+          example: 70001
+        sourceCallId:
+          type: integer
+          example: 50001
+        realizedCallId:
+          type: integer
+          nullable: true
+        customerId:
+          type: integer
+          example: 10001
+        requestedAt:
+          type: string
+          format: date-time
+        scheduledAt:
+          type: string
+          format: date-time
+        realizedAt:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [requested, scheduled, completed, cancelled, failed, overdue]
+        failureReason:
+          type: string
+          nullable: true
+        agentId:
+          type: integer
+          nullable: true
+        phoneMasked:
+          type: string
+          example: '+48***123123'
+
+    UpdateCaseStatusRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [open, in_progress, escalated, closed]
+        resolutionType:
+          type: string
+          nullable: true
+          enum: [FCR, after_escalation, self_service, no_solution]
+        escalationReason:
+          type: string
+          nullable: true
+        updatedByAgentId:
+          type: integer
+          nullable: true
+          example: 201
+
+    CaseStatusResponse:
+      type: object
+      properties:
+        caseId:
+          type: integer
+          example: 30001
+        status:
+          type: string
+          enum: [open, in_progress, escalated, closed]
+        updatedAt:
+          type: string
+          format: date-time
+        slaEvent:
+          $ref: '#/components/schemas/SlaEvent'
+
+    SlaEvent:
+      type: object
+      properties:
+        slaEventId:
+          type: integer
+          example: 80001
+        caseId:
+          type: integer
+          example: 30001
+        eventType:
+          type: string
+          enum: [created, warning, escalated, resolved, breached]
+        eventTime:
+          type: string
+          format: date-time
+        breachedFlag:
+          type: boolean
+        eventComment:
+          type: string
+          nullable: true
+
+    ContactCenterKpiResponse:
+      type: object
+      properties:
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        totalCalls:
+          type: integer
+        asaSeconds:
+          type: number
+          format: double
+        ahtSeconds:
+          type: number
+          format: double
+        fcrRate:
+          type: number
+          format: double
+        slaRate:
+          type: number
+          format: double
+        abandonmentRate:
+          type: number
+          format: double
+        callbackRate:
+          type: number
+          format: double
+        callbackCompletionRate:
+          type: number
+          format: double
+        selfServiceRate:
+          type: number
+          format: double
+        escalationRate:
+          type: number
+          format: double
+
+    ErrorResponse:
+      type: object
+      required: [code, message, traceId, timestamp]
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Invalid request.
+        traceId:
+          type: string
+          example: cc-api-20260706-000123
+        timestamp:
+          type: string
+          format: date-time
