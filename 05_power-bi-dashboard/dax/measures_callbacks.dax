@@ -1,0 +1,32 @@
+-- Callback measures — Contact Center KPI Dashboard
+
+Callback Requests =
+COUNTROWS ( 'callbacks' )
+
+Completed Callbacks =
+CALCULATE ( [Callback Requests], 'callbacks'[status] = "completed" )
+
+Failed Callbacks =
+CALCULATE ( [Callback Requests], 'callbacks'[status] = "failed" )
+
+Overdue Callbacks =
+CALCULATE ( [Callback Requests], 'callbacks'[status] = "overdue" )
+
+Callback Realization Rate =
+DIVIDE ( [Completed Callbacks], [Callback Requests] )
+
+Callback Delay Minutes =
+AVERAGEX (
+    FILTER (
+        'callbacks',
+        'callbacks'[status] = "completed"
+            && NOT ISBLANK ( 'callbacks'[realized_at] )
+    ),
+    DATEDIFF ( 'callbacks'[requested_at], 'callbacks'[realized_at], MINUTE )
+)
+
+Callback SLA Breach Rate =
+DIVIDE ( [Failed Callbacks] + [Overdue Callbacks], [Callback Requests] )
+
+Callback Rate =
+DIVIDE ( [Callback Requests], CALCULATE ( [Total Calls], NOT ISBLANK ( 'calls'[queue_start_time] ) ) )
