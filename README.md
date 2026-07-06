@@ -297,39 +297,48 @@ Problem biznesowy → wymagania → proces BPMN → architektura → API → SQL
 
 ## Najważniejsze artefakty
 
+
 | Obszar | Plik |
 |---|---|
-| Kontekst projektu | 00_project-overview/00_01_project-context.md |
-| Instrukcja czytania projektu | [00_project-overview/00_02_how-to-read-this-roject.md |
-| Zakres i założenia | 00_project-overview/00_03_scope-and-assumptions.md |
-| Warsztaty wymagań | [00_project-overview/00_04_requirements-workshopsmd |
-| Problem biznesowy | [01_business-analysis/1_01_business-problem.md |
-| Analiza interesariuszy | [01_business-analysis/01_02_stakeholder-analysismd |
-| Wymagania | [01_business-analysis/01_03_requirementsmd |
-| User Stories | [01_business-analysis/0104_user-stories.md |
-| Kryteria akceptacji | [01_business-analysis/01_05_acceptance-criteria.md](01_business-analysis/01_05_alysis/01_06_backlog.md](01_business-IS BPMN | [02_process-analysis/02_1_bpmn-as-is.bpmn |
-| Proces TO-BE BPMN | [02_process-analysis/02_03_bpmn-to-be.bpmn|
-| Podgląd AS-IS | 02_process-analysis/02_02_bpmn-as-is.png |
-| Podgląd TO-BE | 02_process-analysis/02_04_bpmn-to-be.png |
-| Opis procesu AS-IS | [02_process-analysis/02_05_as-is-processdescription.md |
-| Opis procesu TO-BE | [02_process-analysis02_06_to-be-process-description.md |
-| Decyzje modelowania BPMN | [02_process-analysis/02_07_bpmn-modeling-decisions.md](02_processtura logiczna | 03_solution-architecture/03_01_architecture.md |
-| Integracje | [03_solution-architecture/0302_integrations.md |
-| REST API | [03_solution-architecture/03_03_api-specification.md](03_solution [03_solution-architecture/03_04_openapi.yaml](03_solution-architectureolution-architecture/03_05_api-governance-nots.md |
-| Model danych SQL | [04_data-model/04_01_database-schema.sql|
-| Dane przykładowe | [04_data-model/04_02_sample-data.sql|
-| Zapytania KPI | 04_data-model/04_03_kpi-queries.sql |
-| Opis modelu danych | [04_data-model/04_04_data-model-description.md](04_ashboard Power BI | [05_power-bi-ashboard/05_01_contact-center-kpis-dashboard.pbix |
-| Dashboard overview | [05_power-bi-dashboard/05_02_dashboard-overview.png](05Call Flow / SLA / FCR / Callback | [05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png](05_powerional Analytics | [05_power-bi-dashboard/05_04_operational-analyticspng |
-| Segments & Agents Analysis | [05_power-bi-dashboard/0505_segments-and-agents-analysis.png |
-| Alerts & Exceptions | [05_power-bi-dashboard05_06_alerts-and-exceptions.png |
-| Opis stron KPI dashboardu | [05_power-bi-dashboard/05_07_dashboard-kpi-pages.md](05_power-bi-dashboard/05_07oardu | [05_power-bi-dashboard/05_08_dashboard-business-insghts.md |
-| Miary DAX | [05_power-bi-dashboard/dax |
-| Model semantyczny Power BI | 05_power-bi-dashboard/semantic-model/ |
-| Podejście analityczne | [06_documentation/06_01_analytical-approach.md|
-| Słownik pojęć | [06_documentation06_02_glossary.md |
-| Macierz śladowania | [06_documentation/06_03_traceability-matrix.md](06_nstrukcja uruchomienia | [06_documentation/06_04_run-instructionsmd |
-| Security & data governance | [06_documentation/06_05_security-and-data-governancemd |
+| Kontekst projektu | [00_project-overview/00_01_project-context.md](00_project-overview/00_01_project-context.md) |
+| Instrukcja czytania projektu | [00_project-overview/00_02_how-to-read-this-project.md](00_project-overview/00_02_how-to-read-this-project.md) |
+| Zakres i założenia | [00_project-overview/00_03_scope-and-assumptions.md](00_project-overview/00_03_scope-and-assumptions.md) |
+| Warsztaty wymagań | [00_project-overview/00_04_requirements-workshops.md](00_project-overview/00_04_requirements-workshops.md) |
+| Problem biznesowy | [01_business-analysis/01_01_business-problem.md](01_business-analysis/01_01_business-problem.md) |
+| Analiza interesariuszy | [01_business-analysis/01_02_stakeholder-analysis.md](01_business-analysis/01_02_stakeholder-analysis.md) |
+| Wymagania | [01_business-analysis/01_03_requirements.md](01_business-analysis/01_03_requirements.md) |
+| User Stories | [01_business-analysis/01_04_user-stories.md](01_business-analysis/01_04_user-stories.md) |
+| Kryteria akceptacji | [01_business-analysis/01_05_acceptance-criteria.md](01_business-analysis/01_05_acceptance-criteria.md) |
+| Backlog | [01_business-analysis/01_06_backlog.md](01_business-analysis/01_06_backlog.md) |
+| Proces AS-IS BPMN | [02_process-analysis/02_01_bpmn-as-is.bpmn](02_process-analysis/02_01_bpmn-as-is.bpmn) |
+| Proces TO-BE BPMN | [02_process-analysis/02_03_bpmn-to-be.bpmn](02_process-analysis/02_03_bpmn-to-be.bpmn) |
+| Podgląd AS-IS | [02_process-analysis/02_02_bpmn-as-is.png](02_process-analysis/02_02_bpmn-as-is.png) |
+| Podgląd TO-BE | [02_process-analysis/02_04_bpmn-to-be.png](02_process-analysis/02_04_bpmn-to-be.png) |
+| Opis procesu AS-IS | [02_process-analysis/02_05_as-is-process-description.md](02_process-analysis/02_05_as-is-process-description.md) |
+| Opis procesu TO-BE | [02_process-analysis/02_06_to-be-process-description.md](02_process-analysis/02_06_to-be-process-description.md) |
+| Decyzje modelowania BPMN | [02_process-analysis/02_07_bpmn-modeling-decisions.md](02_process-analysis/02_07_bpmn-modeling-decisions.md) |
+| Architektura logiczna | [03_solution-architecture/03_01_architecture.md](03_solution-architecture/03_01_architecture.md) |
+| Integracje | [03_solution-architecture/03_02_integrations.md](03_solution-architecture/03_02_integrations.md) |
+| REST API | [03_solution-architecture/03_03_api-specification.md](03_solution-architecture/03_03_api-specification.md) |
+| OpenAPI | [03_solution-architecture/03_04_openapi.yaml](03_solution-architecture/03_04_openapi.yaml) |
+| API governance | [03_solution-architecture/03_05_api-governance-notes.md](03_solution-architecture/03_05_api-governance-notes.md) |
+| Model danych SQL | [04_data-model/04_01_database-schema.sql](04_data-model/04_01_database-schema.sql) |
+| Dane przykładowe | [04_data-model/04_02_sample-data.sql](04_data-model/04_02_sample-data.sql) |
+| Zapytania KPI | [04_data-model/04_03_kpi-queries.sql](04_data-model/04_03_kpi-queries.sql) |
+| Opis modelu danych | [04_data-model/04_04_data-model-description.md](04_data-model/04_04_data-model-description.md) |
+| Dashboard Power BI | [05_power-bi-dashboard/05_01_contact-center-kpis-dashboard.pbix](05_power-bi-dashboard/05_01_contact-center-kpis-dashboard.pbix) |
+| Dashboard overview | [05_power-bi-dashboard/05_02_dashboard-overview.png](05_power-bi-dashboard/05_02_dashboard-overview.png) |
+| Call Flow / SLA / FCR / Callback | [05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png](05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png) |
+| Operational Analytics | [05_power-bi-dashboard/05_04_operational-analytics.png](05_power-bi-dashboard/05_04_operational-analytics.png) |
+| Segments & Agents Analysis | [05_power-bi-dashboard/05_05_segments-and-agents-analysis.png](05_power-bi-dashboard/05_05_segments-and-agents-analysis.png) |
+| Alerts & Exceptions | [05_power-bi-dashboard/05_06_alerts-and-exceptions.png](05_power-bi-dashboard/05_06_alerts-and-exceptions.png) |
+| Opis stron KPI dashboardu | [05_power-bi-dashboard/05_07_dashboard-kpi-pages.md](05_power-bi-dashboard/05_07_dashboard-kpi-pages.md) |
+| Wnioski biznesowe z dashboardu | [05_power-bi-dashboard/05_08_dashboard-business-insights.md](05_power-bi-dashboard/05_08_dashboard-business-insights.md) |
+| Miary DAX | [05_power-bi-dashboard/dax/](05_power-bi-dashboard/dax/) |
+| Model semantyczny Power BI | [05_power-bi-dashboard/semantic-model/](05_power-bi-dashboard/semantic-model/) |
+| Macierz śladowania | [06_documentation/06_03_traceability-matrix.md](06_documentation/06_03_traceability-matrix.md) |
+| Security & data governance | [06_documentation/06_05_security-and-data-governance.md](06_documentation/06_05_security-and-data-governance.md) |
+
 ---
 
 ## 01. Business Analysis
