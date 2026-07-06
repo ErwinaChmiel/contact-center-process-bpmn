@@ -205,11 +205,12 @@ contact-center-process-bpmn/
 ├── 05_power-bi-dashboard/
 │   ├── 05_01_contact-center-kpis-dashboard.pbix
 │   ├── 05_02_dashboard-overview.png
-│   ├── 05_03_dashboard-kpi-pages.md
+│   ├── 05_03_call-flow-sla-fcr-callback.png
 │   ├── 05_04_operational-analytics.png
 │   ├── 05_05_segments-and-agents-analysis.png
 │   ├── 05_06_alerts-and-exceptions.png
-│   ├── 05_07_dashboard-business-insights.md
+│   ├── 05_07_dashboard-kpi-pages.md
+│   ├── 05_08_dashboard-business-insights.md
 │   ├── dax/
 │   │   ├── measures_alerts.dax
 │   │   ├── measures_callbacks.dax
@@ -261,7 +262,7 @@ Rekomendowana kolejność czytania:
    - opis modelu danych.
 7. Otwórz `05_power-bi-dashboard/`, aby zobaczyć:
    - plik Power BI,
-   - podgląd dashboardu,
+   - podglądy stron dashboardu,
    - opis wniosków biznesowych,
    - eksport miar DAX,
    - opis modelu semantycznego.
@@ -311,13 +312,15 @@ Problem biznesowy → wymagania → proces BPMN → architektura → API → SQL
 | Zapytania KPI | `04_data-model/04_03_kpi-queries.sql` |
 | Opis modelu danych | `04_data-model/04_04_data-model-description.md` |
 | Dashboard Power BI | `05_power-bi-dashboard/05_01_contact-center-kpis-dashboard.pbix` |
-| Podgląd dashboardu | `05_power-bi-dashboard/05_02_dashboard-overview.png` |
+| Dashboard overview | `05_power-bi-dashboard/05_02_dashboard-overview.png` |
+| Call Flow / SLA / FCR / Callback | `05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png` |
 | Operational Analytics | `05_power-bi-dashboard/05_04_operational-analytics.png` |
 | Segments & Agents Analysis | `05_power-bi-dashboard/05_05_segments-and-agents-analysis.png` |
 | Alerts & Exceptions | `05_power-bi-dashboard/05_06_alerts-and-exceptions.png` |
+| Opis stron KPI dashboardu | `05_power-bi-dashboard/05_07_dashboard-kpi-pages.md` |
+| Wnioski biznesowe z dashboardu | `05_power-bi-dashboard/05_08_dashboard-business-insights.md` |
 | Miary DAX | `05_power-bi-dashboard/dax/` |
 | Model semantyczny Power BI | `05_power-bi-dashboard/semantic-model/` |
-| Wnioski biznesowe z dashboardu | `05_power-bi-dashboard/05_07_dashboard-business-insights.md` |
 | Macierz śladowania | `06_documentation/06_03_traceability-matrix.md` |
 | Security & data governance | `06_documentation/06_05_security-and-data-governance.md` |
 
@@ -448,20 +451,59 @@ Dashboard został przygotowany jako narzędzie wspierające pracę liderów i me
 Raport umożliwia analizę:
 
 - obciążenia infolinii w czasie,
+- liczby połączeń przychodzących,
+- liczby połączeń odebranych,
+- poziomu porzuconych połączeń,
 - czasu oczekiwania klientów,
 - średniego czasu obsługi połączeń,
-- porzuconych połączeń,
+- SLA,
+- FCR,
+- callbacków,
+- self-service,
 - skuteczności zespołów i konsultantów,
 - jakości obsługi segmentów klientów,
-- callbacków,
 - spraw po SLA,
 - alertów operacyjnych i wyjątków.
 
-### Podgląd dashboardu — overview
+### 1. Contact Center — Performance Dashboard
 
-![Dashboard overview](05_power-bi-dashboard/05_03_operational-analytics.png.png)
+Strona główna dashboardu pokazuje najważniejsze KPI Contact Center.
 
-### Operational Analytics
+Widoczne są m.in.:
+
+- Total Inbound Calls,
+- Answered Calls,
+- Abandonment Rate,
+- SLA Rate,
+- FCR Rate,
+- Self-service Rate,
+- Inbound Call Trends,
+- AHT Trend,
+- ASA Trend,
+- Contact Reasons Breakdown,
+- Case Categories Distribution.
+
+05_power-bi-dashboard/05_02_dashboard-overview.png
+
+### 2. Call Flow / SLA / FCR / Callback
+
+Strona pokazuje przepływ połączeń, poziom SLA, FCR oraz skuteczność callbacków.
+
+Widoczne są m.in.:
+
+- Call Flow Funnel,
+- Outcome Distribution,
+- SLA Achievement Rate,
+- FCR Achievement Rate,
+- Queue Time Distribution,
+- SLA Escalation Rate,
+- FCR by Contact Category,
+- Callback Effectiveness,
+- Average Callback Delay.
+
+05_power-bi-dashboard/05_03_call-flow-sla-fcr-callback.png
+
+### 3. Operational Analytics
 
 Strona pokazuje szczegółową analitykę operacyjną kolejek, czasów oczekiwania i obsługi.
 
@@ -476,7 +518,7 @@ Widoczne są m.in.:
 
 05_power-bi-dashboard/05_04_operational-analytics.png
 
-### Segments & Agents Analysis
+### 4. Segments & Agents Analysis
 
 Strona pokazuje analizę efektywności konsultantów, zespołów oraz segmentów klientów.
 
@@ -493,41 +535,7 @@ Widoczne są m.in.:
 
 05_power-bi-dashboard/05_05_segments-and-agents-analysis.png
 
-### Alerts & Exceptions
-
-Strona pokazuje alerty operacyjne i wyjątki wymagające uwagi lidera lub menedżera Contact Center.
-
-Widoczne są m.in.:
-
-- Cases Past SLA,
-- Unresolved Callbacks,
-- Abandoned Calls,
-- Agents with High AHT,
-- lista spraw po SLA,
-- alerty callbacków,
-- tabela konsultantów wymagających analizy.
-
-05_power-bi-dashboard/05_06_alerts-and-exceptions.png
-``
-
-### Segments & Agents Analysis
-
-Strona pokazuje analizę efektywności konsultantów, zespołów oraz segmentów klientów.
-
-Widoczne są m.in.:
-
-- FCR by Agent Team,
-- Average Handle Time by Team,
-- Calls Handled by Agent,
-- FCR by Agent,
-- AHT by Agent,
-- Customer Segment Call Volume,
-- FCR by Customer Segment,
-- Trend Analysis for Agents.
-
-05_power-bi-dashboard/05_05_segments-and-agents-analysis.png
-
-### Alerts & Exceptions
+### 5. Alerts & Exceptions
 
 Strona pokazuje alerty operacyjne i wyjątki wymagające uwagi lidera lub menedżera Contact Center.
 
