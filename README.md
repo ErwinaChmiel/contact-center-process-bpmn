@@ -387,7 +387,7 @@ Proces docelowy po usprawnieniach:
 
 ### Podgląd procesu AS-IS
 
-[![opis](ścieżka/do/obrazu.png)](02_process-analysis/02_02_bpmn-as-is.png)
+![bpmn-as-is](02_process-analysis/02_02_bpmn-as-is.png)
 
 ### Podgląd procesu TO-BE
 
