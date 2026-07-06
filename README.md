@@ -343,16 +343,17 @@ Problem biznesowy → wymagania → proces BPMN → architektura → API → SQL
 
 ## 01. Business Analysis
 
-Folder 01_business-analysis/ zawiera dokumenty opisujące warstwę biznesową projektu.
+Folder `01_business-analysis/` zawiera dokumenty opisujące warstwę biznesową projektu.
 
 Zawartość:
 
-- 01_business-analysis/01_01_business-problem.md — analiza problemu biznesowego,
-- 01_business-analysis/01_02_stakeholder-analysis.md — analiza interesariuszy,
-- 01_business-analysis/01_03_requirements.md — wymagania biznesowe, funkcjonalne i niefunkcjonalne,
-- 01_business-analysis/01_04_user-stories.md — User Stories,
-- 01_business-analysis/01_05_acceptance-criteria.md — kryteria akceptacji,
-- 01_business-analysis/01_06_backlog.md — backlog produktu.
+* [01_business-analysis/01_01_business-problem.md](01_business-analysis/01_01_business-problem.md) — analiza problemu biznesowego,
+* [01_business-analysis/01_02_stakeholder-analysis.md](01_business-analysis/01_02_stakeholder-analysis.md) — analiza interesariuszy,
+* [01_business-analysis/01_03_requirements.md](01_business-analysis/01_03_requirements.md) — wymagania biznesowe, funkcjonalne i niefunkcjonalne,
+* [01_business-analysis/01_04_user-stories.md](01_business-analysis/01_04_user-stories.md) — User Stories,
+* [01_business-analysis/01_05_acceptance-criteria.md](01_business-analysis/01_05_acceptance-criteria.md) — kryteria akceptacji,
+* [01_business-analysis/01_06_backlog.md](01_business-analysis/01_06_backlog.md) — backlog produktu.
+
 
 Ta część pokazuje, dlaczego projekt jest potrzebny, jakie problemy rozwiązuje i jakie wymagania wynikają z procesu Contact Center.
 
