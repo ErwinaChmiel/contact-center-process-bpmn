@@ -1,7 +1,5 @@
 # Contact Center Process Optimization — BPMN + SQL + Power BI
 
-> Portfolio project showing a full business, process, system, data and BI analysis case study for a Contact Center process.
-
 https://img.shields.io/badge/Business%20Analysis-Requirements-blue
 https://img.shields.io/badge/BPMN-AS--IS%20%7C%20TO--BE-green
 https://img.shields.io/badge/SQL-Data%20Model-orange
