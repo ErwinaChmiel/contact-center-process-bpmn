@@ -45,15 +45,6 @@ Cel:
 
 Rekomendowana kolejność plików:
 
-```text
-01_01_business-problem.md
-01_02_stakeholder-analysis.md
-01_03_requirements.md
-01_04_user-stories.md
-01_05_acceptance-criteria.md
-01_06_backlog.md
-```
-
 ---
 
 ### 3. Analiza procesu
