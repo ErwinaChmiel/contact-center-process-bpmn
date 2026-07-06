@@ -42,7 +42,7 @@ Projekt obejmuje:
 - inżynierię wymagań,
 - User Stories i kryteria akceptacji,
 - backlog produktu,
-- modelowanie procesu BPMN AS-IS i TO-BE,
+- modelowanie procesu BPMN AS-IS i ,
 - opis architektury logicznej rozwiązania,
 - analizę integracji między systemami,
 - przykładową specyfikację REST API,
@@ -87,7 +87,7 @@ W procesie AS-IS zidentyfikowano następujące problemy:
 - utrudnione monitorowanie efektywności konsultantów,
 - brak spójnego modelu danych do raportowania.
 
-Proces TO-BE odpowiada na te problemy poprzez:
+Proces  odpowiada na te problemy poprzez:
 
 - self-service w IVR dla prostych spraw,
 - callback dla klientów oczekujących w kolejce,
@@ -136,7 +136,7 @@ User Stories i kryteria akceptacji
         ↓
 Backlog produktu
         ↓
-Proces AS-IS i TO-BE w BPMN
+Proces AS-IS i  w BPMN
         ↓
 Architektura logiczna rozwiązania
         ↓
@@ -197,10 +197,10 @@ contact-center-process-bpmn/
 ├── 02_process-analysis/
 │   ├── 02_01_bpmn-as-is.bpmn
 │   ├── 02_02_bpmn-as-is.png
-│   ├── 02_03_bpmn-to-be.bpmn
-│   ├── 02_04_bpmn-to-be.png
+│   ├── 02_03_bpmn-.bpmn
+│   ├── 02_04_bpmn-.png
 │   ├── 02_05_as-is-process-description.md
-│   ├── 02_06_to-be-process-description.md
+│   ├── 02_06_-process-description.md
 │   └── 02_07_bpmn-modeling-decisions.md
 │
 ├── 03_solution-architecture/
