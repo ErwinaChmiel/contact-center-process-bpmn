@@ -382,10 +382,3 @@ Projekt pokazuje pełne przejście:
 Problem biznesowy → wymagania → proces TO-BE → architektura → dane SQL → KPI → dashboard Power BI
 ```
 
-Dzięki temu repozytorium może być wykorzystane jako portfolio dla ról:
-
-- Business Analyst,
-- Business-System Analyst,
-- BI Analyst,
-- Data Analyst,
-- Process Analyst.
