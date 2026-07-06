@@ -538,3 +538,87 @@ Projekt pokazuje pełne przejście:
 ```text
 Problem biznesowy → wymagania → proces TO-BE → architektura → API → dane SQL → KPI → dashboard Power BI
 ```
+
+---
+
+## FAQ
+
+### 1. Czy projekt jest pełną implementacją systemu Contact Center?
+
+Nie. Projekt ma charakter portfolio i case study. Nie przedstawia kompletnej implementacji produkcyjnej systemu Contact Center, ale pokazuje pełny tok pracy analitycznej: od problemu biznesowego, przez proces BPMN AS-IS / TO-BE, wymagania, architekturę, API, model danych SQL, KPI oraz dashboard Power BI.
+
+---
+
+### 2. Jaki jest główny cel projektu?
+
+Głównym celem projektu jest pokazanie, w jaki sposób można przeanalizować i usprawnić proces obsługi połączeń przychodzących w Contact Center oraz przełożyć tę analizę na konkretne artefakty: wymagania, modele BPMN, architekturę logiczną, model danych, zapytania KPI i dashboard Power BI.
+
+---
+
+### 3. Czym różni się proces AS-IS od TO-BE?
+
+Proces AS-IS pokazuje obecny sposób obsługi połączeń, w którym występują m.in. kolejki, porzucone połączenia, ograniczony self-service i brak callbacku.
+
+Proces TO-BE pokazuje proces docelowy po usprawnieniach, takich jak:
+
+- self-service w IVR,
+- callback zamiast oczekiwania w kolejce,
+- tagowanie powodów kontaktu,
+- lepsze monitorowanie SLA,
+- uporządkowana eskalacja do 2nd line,
+- dane przygotowane pod raportowanie KPI.
+
+---
+
+### 4. Dlaczego w projekcie wykorzystano BPMN?
+
+BPMN został użyty do pokazania procesu biznesowego w sposób czytelny dla osób biznesowych i technicznych. Diagramy AS-IS i TO-BE pozwalają porównać obecny proces z procesem docelowym oraz wskazać miejsca, w których zaprojektowano usprawnienia.
+
+---
+
+### 5. Dlaczego w projekcie jest część SQL?
+
+Część SQL pokazuje, jak dane z procesu Contact Center mogą zostać zapisane w relacyjnym modelu danych i wykorzystane do analizy KPI.
+
+Model danych obejmuje m.in.:
+
+- połączenia,
+- sprawy,
+- kontakty,
+- konsultantów,
+- klientów,
+- callbacki,
+- zdarzenia SLA.
+
+Dzięki temu projekt pokazuje nie tylko proces, ale także sposób mierzenia jego efektywności.
+
+---
+
+### 6. Jakie KPI są analizowane w projekcie?
+
+Projekt analizuje kluczowe KPI Contact Center, m.in.:
+
+- ASA — Average Speed of Answer,
+- AHT — Average Handle Time,
+- FCR — First Contact Resolution,
+- SLA Rate,
+- Abandonment Rate,
+- Self-service Rate,
+- Callback Rate,
+- Callback Realization Rate,
+- Escalation Rate.
+
+---
+
+### 7. Po co w projekcie znajduje się dashboard Power BI?
+
+Dashboard Power BI pokazuje, jak dane z modelu SQL mogą zostać wykorzystane do monitorowania efektywności Contact Center. Raport wspiera podejmowanie decyzji dotyczących m.in. obsady zespołu, kolejek, callbacków, SLA, eskalacji i jakości obsługi.
+
+---
+
+### 8. Czy projekt zawiera specyfikację API?
+
+Tak. Projekt zawiera opis przykładowej specyfikacji REST API oraz plik OpenAPI:
+
+```text
+03_solution-architecture/03_04_openapi.yaml
