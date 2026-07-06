@@ -89,19 +89,3 @@ Message flows powinny pokazywać komunikację między:
 6. PNG jest tylko podglądem dla osób nietechnicznych; źródłem prawdy jest plik `.bpmn`.
 
 ---
-
-## Rekomendowana poprawka repozytorium
-
-W folderze `02_process-analysis/` warto przechowywać:
-
-```text
-02_01_bpmn-as-is.bpmn
-02_02_bpmn-as-is.png
-02_03_bpmn-to-be.bpmn
-02_04_bpmn-to-be.png
-02_05_as-is-process-description.md
-02_06_to-be-process-description.md
-02_07_bpmn-modeling-decisions.md
-```
-
-Jeżeli obecnie pliki BPMN są spakowane jako `.bpmn.zip`, należy je rozpakować i trzymać w repozytorium także w formacie `.bpmn`.
